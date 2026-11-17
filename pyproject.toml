@@ -1,0 +1,33 @@
+[project]
+name = "inemadlp"
+dynamic = ["version"]
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "yt-dlp[default]>=2026.7.4",
+    "deno>=2.3",
+    "itsdangerous>=2.2",
+    "python-multipart>=0.0.20",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.3", "httpx>=0.28"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+inemadlp = ["web/*"]
+
+[tool.setuptools.dynamic]
+version = {attr = "inemadlp.__version__"}
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["integration: exige rede e uma fonte real"]
+addopts = "-m 'not integration'"
