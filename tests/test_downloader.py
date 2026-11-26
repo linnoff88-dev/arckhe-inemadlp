@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from inemadlp import downloader
+from ARCKHÉdlp import downloader
 
 
 def test_video_opts_cap_at_1080_and_remux_mp4(tmp_path):

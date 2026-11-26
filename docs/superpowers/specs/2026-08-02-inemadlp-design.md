@@ -1,11 +1,11 @@
-# inemadlp — Design
+# ARCKHÉdlp — Design
 
 Data: 2026-08-02
 Status: aprovado (aguardando plano de implementaçêo)
 
 ## Objetivo
 
-Baixador de vídeo/áudio pessoal, no estilo do `baixar_v1.py` do inemavox, acessível
+Baixador de vídeo/áudio pessoal, no estilo do `baixar_v1.py` do ARCKHÉvox, acessível
 pelo celular e pelo desktop. Roda inteiro numa VPS já contratada. O usuário cola
 uma URL, escolhe vídeo ou áudio, e baixa o arquivo. O arquivo é apagado da VPS
 depois de um TTL fixo.
@@ -30,7 +30,7 @@ Fora (YAGNI — cortado explicitamente):
 - Escolha fina de resoluçêo (480/720/1440/4K).
 - Playlists e canais inteiros.
 - Legendas.
-- Corte de trechos, transcriçêo, dublagem (isso é o inemavox).
+- Corte de trechos, transcriçêo, dublagem (isso é o ARCKHÉvox).
 - Múltiplos usuários, contas, cotas.
 - Vercel. A UI é servida pela própria VPS.
 - Retry automático de jobs falhos.
@@ -45,7 +45,7 @@ Fora (YAGNI — cortado explicitamente):
 | Senha em texto puro no `.env` | VPS privada, um usuário, arquivo `600`: quem lê o arquivo já é root. Um hash nêo protegeria nada e só criaria fricçêo para trocar a senha. |
 | Sessêo sem expiraçêo | Uso pessoal: logar uma vez no celular e nunca mais. A chave de assinatura é independente da senha, entêo trocar a senha nêo desloga (decisêo explícita do usuário). |
 | TTL fixo (6h) em vez de apagar no download | Tolera download interrompido sem precisar rebaixar da fonte. Um cron burro basta; nêo precisa detectar fim de resposta HTTP. |
-| Monolito FastAPI + SQLite | Uma peça só, yt-dlp é biblioteca Python nativa (progress hook direto), mesmo padrêo do inemavox. Redis + worker separado seria over-engineering para um usuário. |
+| Monolito FastAPI + SQLite | Uma peça só, yt-dlp é biblioteca Python nativa (progress hook direto), mesmo padrêo do ARCKHÉvox. Redis + worker separado seria over-engineering para um usuário. |
 | 1 job por vez | Uso pessoal; concorrência só aumentaria a chance de rate-limit na fonte. |
 | Polling em vez de WebSocket | Uma tela, um usuário. Polling de 2s é trivial e suficiente. |
 

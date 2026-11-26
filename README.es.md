@@ -1,4 +1,4 @@
-# inemadlp
+# ARCKHÉdlp
 
 **🇧🇷 [Português](README.md) · 🇺🇸 [English](README.en.md) · 🇪🇸 [Español](README.es.md)**
 
@@ -6,7 +6,7 @@ Downloader personal de video y audio (FastAPI + yt-dlp) que funciona en tu VPS. 
 
 ## 📖 Guía de uso
 
-Guía completa (landing + paso a paso): **https://inematds.github.io/inemadlp/guia/es/**
+Guía completa (landing + paso a paso): **https://linnoff88-dev.github.io/arckhe-/guia/es/**
 
 ---
 
@@ -121,8 +121,8 @@ contenedores e imprime la contraseña al final:
 ```bash
 ssh usuario@203.0.113.10
 
-git clone https://github.com/inematds/inemadlp.git
-cd inemadlp
+git clone https://github.com/linnoff88-dev/ARCKHÉdlp.git
+cd ARCKHÉdlp
 ./instalar.sh dlp.seudominio
 ```
 
@@ -142,8 +142,8 @@ Si prefieres hacerlo a mano o entender cada parte:
 ```bash
 ssh usuario@203.0.113.10
 
-git clone https://github.com/inematds/inemadlp.git
-cd inemadlp
+git clone https://github.com/linnoff88-dev/ARCKHÉdlp.git
+cd ARCKHÉdlp
 ```
 
 ### 2. Generar los tres secretos
@@ -227,7 +227,7 @@ raros que tengas que recordar.
 
 | Puerto | Quién lo usa | ¿Debe estar abierto? |
 |---|---|---|
-| **443** | HTTPS: es por donde usas inemadlp | **sí** |
+| **443** | HTTPS: es por donde usas ARCKHÉdlp | **sí** |
 | **80** | Caddy, para emitir o renovar el certificado y redirigir al 443 | **sí** (sin este puerto no se emite el HTTPS) |
 | **22** | Tu `ssh` para administrar la VPS | **sí** |
 | 8000 | La app, **solo dentro** de la red de Docker | **no**, y no debe estarlo |
@@ -285,7 +285,7 @@ YouTube:
 
 1. instala la extensión [**Get cookies.txt LOCALLY**](https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc);
 2. abre YouTube, haz clic en la extensión y exporta el `cookies.txt`;
-3. en inemadlp, abre el panel **Cookies** y envía el archivo.
+3. en ARCKHÉdlp, abre el panel **Cookies** y envía el archivo.
 
 El panel mostrará la fecha del último envío.
 
@@ -314,7 +314,7 @@ Las cookies demuestran que hay una cuenta con sesión iniciada. Las obtienes de
 
 Las cookies **no son tu contraseña**. Son tu sesión ya iniciada. Aun así, quien
 tenga el archivo puede entrar a tu cuenta; por eso solo permanece dentro de tu VPS,
-protegido por la contraseña de inemadlp.
+protegido por la contraseña de ARCKHÉdlp.
 
 ### Paso a paso (Windows, Edge o Chrome)
 
@@ -342,10 +342,10 @@ pieza de rompecabezas 🧩 para encontrarla) y elige **Export** (o *Export as*
 → `cookies.txt`).
 
 Se descargará un archivo `cookies.txt` en tu carpeta de Descargas. Empieza con la línea
-`# Netscape HTTP Cookie File`; inemadlp rechaza el archivo si esa línea no
+`# Netscape HTTP Cookie File`; ARCKHÉdlp rechaza el archivo si esa línea no
 está, precisamente porque yt-dlp también lo rechazaría.
 
-inemadlp también acepta la exportación en **JSON** que ofrecen algunas versiones de esta y
+ARCKHÉdlp también acepta la exportación en **JSON** que ofrecen algunas versiones de esta y
 otras extensiones. Si la página de exportación te permite elegir entre
 `cookies.txt` y JSON, **prefiere `cookies.txt`**: es el formato que yt-dlp lee
 de forma nativa, así que hay un paso de conversión menos y menos posibilidades de error. Si
@@ -353,7 +353,7 @@ el panel rechaza el archivo, el mensaje ahora explica el motivo (JSON malformado
 página HTML guardada por error, campos separados por espacios en vez de TAB,
 archivo vacío, etc.) y qué hacer para corregirlo.
 
-**4. Enviar a inemadlp**
+**4. Enviar a ARCKHÉdlp**
 
 1. abre `https://seu-dominio` (en la PC; es más fácil que en el celular);
 2. inicia sesión con la contraseña, si te la pide;
@@ -397,7 +397,7 @@ DLP_URL=https://seu-dominio DLP_UPLOAD_TOKEN=<token> ./sync-cookies.sh
 Y, si quieres no volver a ver el error, puedes configurar un cron semanal:
 
 ```cron
-0 9 * * 1 DLP_URL=https://seu-dominio DLP_UPLOAD_TOKEN=<token> /caminho/para/inemadlp/sync-cookies.sh
+0 9 * * 1 DLP_URL=https://seu-dominio DLP_UPLOAD_TOKEN=<token> /caminho/para/ARCKHÉdlp/sync-cookies.sh
 ```
 
 ---
@@ -429,7 +429,7 @@ Si supera ese límite, el job se **rechaza con un aviso** que indica la duració
 sin consumir una llamada a la API. No hay división automática: sería posible cortar el
 audio en partes y unir el texto, pero se dejó deliberadamente fuera para
 mantenerlo simple. Por lo tanto, las clases largas y los podcasts no se transcriben
-aquí; para eso, usa inemavox.
+aquí; para eso, usa ARCKHÉvox.
 
 Requiere `GROQ_API_KEY` en `.env`. Si no está la clave, la opción no aparece en la interfaz.
 
@@ -444,7 +444,7 @@ US$ 0,04 por hora de audio.
 En la VPS, basta con un comando:
 
 ```bash
-cd inemadlp
+cd ARCKHÉdlp
 ./atualizar.sh
 ```
 
@@ -468,7 +468,7 @@ docker compose up -d --build
 actualización no tiene ningún efecto.
 
 Después de actualizar, la versión aparece discretamente en el pie de página de la interfaz
-(`inemadlp vX.Y.Z`): basta con abrir el sitio y comprobar que coincida con la nueva versión
+(`ARCKHÉdlp vX.Y.Z`): basta con abrir el sitio y comprobar que coincida con la nueva versión
 antes de considerar actualizada la VPS.
 
 ---

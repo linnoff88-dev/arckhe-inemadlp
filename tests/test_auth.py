@@ -1,6 +1,6 @@
 import base64
 
-from inemadlp import auth
+from ARCKHÉdlp import auth
 
 CHAVE = "chave-secreta"
 

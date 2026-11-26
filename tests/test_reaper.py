@@ -1,7 +1,7 @@
 import pytest
 
-from inemadlp import reaper
-from inemadlp.store import ERROR, EXPIRED, PENDING, READY, RUNNING, Store
+from ARCKHÉdlp import reaper
+from ARCKHÉdlp.store import ERROR, EXPIRED, PENDING, READY, RUNNING, Store
 
 HORA = 3600
 

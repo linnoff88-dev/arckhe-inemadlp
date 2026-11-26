@@ -4,9 +4,9 @@ import hmac
 
 from itsdangerous import BadData, URLSafeSerializer
 
-SESSION_COOKIE = "inemadlp_session"
+SESSION_COOKIE = "ARCKHÉdlp_session"
 SESSION_MAX_AGE = 315_360_000  # 10 anos: na prática a sessêo nêo expira
-_SALT = "inemadlp-session"
+_SALT = "ARCKHÉdlp-session"
 _PAYLOAD = "ok"
 
 

@@ -1,6 +1,6 @@
 import pytest
 
-from inemadlp.config import load_settings
+from ARCKHÉdlp.config import load_settings
 
 BASE_ENV = {
     "DLP_PASSWORD": "segredo",
@@ -13,7 +13,7 @@ def test_load_settings_uses_defaults():
     settings = load_settings(BASE_ENV)
     assert settings.ttl_hours == 6
     assert str(settings.data_dir) == "/data"
-    assert str(settings.db_path) == "/data/inemadlp.db"
+    assert str(settings.db_path) == "/data/ARCKHÉdlp.db"
     assert str(settings.downloads_dir) == "/data/downloads"
     assert str(settings.cookies_path) == "/data/cookies.txt"
 

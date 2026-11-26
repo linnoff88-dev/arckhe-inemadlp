@@ -7,7 +7,7 @@ import logging
 import shutil
 from pathlib import Path
 
-from inemadlp.store import Store
+from ARCKHÉdlp.store import Store
 
 logger = logging.getLogger(__name__)
 

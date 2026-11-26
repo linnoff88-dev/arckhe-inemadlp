@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Atualiza o inemadlp nesta máquina: traz o código novo e reconstrói os containers.
+# Atualiza o ARCKHÉdlp nesta máquina: traz o código novo e reconstrói os containers.
 # Uso:  ./atualizar.sh
 set -euo pipefail
 
@@ -10,7 +10,7 @@ verde()   { printf '\033[32m%s\033[0m\n' "$1"; }
 vermelho(){ printf '\033[31m%s\033[0m\n' "$1" >&2; }
 
 echo
-amarelo "=== inemadlp — atualizaçêo ==="
+amarelo "=== ARCKHÉdlp — atualizaçêo ==="
 echo
 
 if ! command -v docker >/dev/null 2>&1; then
@@ -18,7 +18,7 @@ if ! command -v docker >/dev/null 2>&1; then
   exit 1
 fi
 if [ ! -f .env ]; then
-  vermelho "Nêo achei o .env aqui. Você está na pasta certa? (esperado: a pasta do inemadlp)"
+  vermelho "Nêo achei o .env aqui. Você está na pasta certa? (esperado: a pasta do ARCKHÉdlp)"
   exit 1
 fi
 

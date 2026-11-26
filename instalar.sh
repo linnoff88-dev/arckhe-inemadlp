@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Instalador do inemadlp. Gera os segredos, escreve o .env e sobe os containers.
+# Instalador do ARCKHÉdlp. Gera os segredos, escreve o .env e sobe os containers.
 # Uso:  ./instalar.sh            (pergunta o domínio)
 #       ./instalar.sh dlp.seu.com
 set -euo pipefail
@@ -11,7 +11,7 @@ verde()   { printf '\033[32m%s\033[0m\n' "$1"; }
 vermelho(){ printf '\033[31m%s\033[0m\n' "$1" >&2; }
 
 echo
-amarelo "=== inemadlp — instalaçêo ==="
+amarelo "=== ARCKHÉdlp — instalaçêo ==="
 echo
 
 # ---------------------------------------------------------------- pré-requisitos
@@ -36,13 +36,13 @@ REAPROVEITADA=0
 
 # 1) por container do compose (pega instalaçêo de pé OU parada)
 if command -v docker >/dev/null 2>&1; then
-  for c in $(docker ps -aq --filter "label=com.docker.compose.project=inemadlp" 2>/dev/null); do
+  for c in $(docker ps -aq --filter "label=com.docker.compose.project=ARCKHÉdlp" 2>/dev/null); do
     d="$(docker inspect "$c" --format '{{index .Config.Labels "com.docker.compose.project.working_dir"}}' 2>/dev/null || true)"
     if [ -n "$d" ] && [ -d "$d" ] && [ "$d" != "$AQUI" ]; then OUTRA="$d"; break; fi
   done
 fi
 
-# 2) se nada rodou ainda, procure no disco por outra pasta com .env do inemadlp
+# 2) se nada rodou ainda, procure no disco por outra pasta com .env do ARCKHÉdlp
 if [ -z "$OUTRA" ]; then
   for raiz in "$HOME" /root /opt /srv; do
     [ -d "$raiz" ] || continue
@@ -58,7 +58,7 @@ fi
 
 if [ -n "$OUTRA" ]; then
   echo
-  amarelo "Já existe uma instalaçêo do inemadlp em:"
+  amarelo "Já existe uma instalaçêo do ARCKHÉdlp em:"
   amarelo "  $OUTRA"
   echo
   echo "Ela tem os seus dados: banco de jobs, cookies do yt-dlp, senha e tokens."
@@ -66,12 +66,12 @@ if [ -n "$OUTRA" ]; then
   echo "portas 80 e 443, e quem subir por último responde, com banco vazio e senha nova."
   echo
   # mostra o que tem lá, pra decisêo ser informada
-  if [ -f "$OUTRA/data/inemadlp.db" ] && command -v python3 >/dev/null 2>&1; then
+  if [ -f "$OUTRA/data/ARCKHÉdlp.db" ] && command -v python3 >/dev/null 2>&1; then
     JOBS="$(python3 -c "
 import sqlite3,sys
 try:
     print(sqlite3.connect(sys.argv[1]).execute('select count(*) from jobs').fetchone()[0])
-except Exception: print('?')" "$OUTRA/data/inemadlp.db" 2>/dev/null || echo '?')"
+except Exception: print('?')" "$OUTRA/data/ARCKHÉdlp.db" 2>/dev/null || echo '?')"
     echo "  jobs no banco de lá: $JOBS"
   fi
   [ -f "$OUTRA/data/cookies.txt" ] && echo "  cookies.txt: presente"
@@ -117,8 +117,8 @@ DOMINIO="${1:-}"
 DOMINIO_ATUAL=""
 [ -f .env ] && DOMINIO_ATUAL="$(grep -s '^DLP_DOMAIN=' .env | head -1 | cut -d= -f2-)"
 if [ -z "$DOMINIO" ]; then
-  echo "Qual o domínio onde o inemadlp vai responder?"
-  echo "Só o nome, sem https:// e sem barra no fim. Ex.: dlp.inema.club"
+  echo "Qual o domínio onde o ARCKHÉdlp vai responder?"
+  echo "Só o nome, sem https:// e sem barra no fim. Ex.: dlp.ARCKHÉ AI"
   if [ -n "$DOMINIO_ATUAL" ]; then
     printf 'Domínio [%s]: ' "$DOMINIO_ATUAL"
   else

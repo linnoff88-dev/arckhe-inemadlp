@@ -12,9 +12,9 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from starlette.datastructures import UploadFile as StarletteUploadFile
 
-from inemadlp import __version__, auth, cookies, downloader, worker
-from inemadlp.config import Settings, load_settings
-from inemadlp.store import READY, Job, Store
+from ARCKHÉdlp import __version__, auth, cookies, downloader, worker
+from ARCKHÉdlp.config import Settings, load_settings
+from ARCKHÉdlp.store import READY, Job, Store
 
 WEB_DIR = Path(__file__).parent / "web"
 FORMATOS_BASE = ("video", "audio")

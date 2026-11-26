@@ -1,6 +1,6 @@
 # Cookies: aceitar JSON + mensagens de erro específicas
 
-## Mudanças em `src/inemadlp/cookies.py`
+## Mudanças em `src/ARCKHÉdlp/cookies.py`
 
 1. **Aceita o export JSON da extensêo** (`Get cookies.txt LOCALLY` e similares):
    - Detecta JSON quando o conteúdo (após strip) começa com `[` ou `{`.

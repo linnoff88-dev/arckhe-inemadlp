@@ -3,7 +3,7 @@ import json
 import pytest
 from yt_dlp.cookies import YoutubeDLCookieJar
 
-from inemadlp import cookies
+from ARCKHÉdlp import cookies
 
 VALIDO = (
     "# Netscape HTTP Cookie File\n"

@@ -9,7 +9,7 @@ nêo tinha fallback: quando nada batia exatamente, o yt-dlp estourava
 
 ## Fix
 
-1. `src/inemadlp/downloader.py` — `_FORMATOS`:
+1. `src/ARCKHÉdlp/downloader.py` — `_FORMATOS`:
    - `video`: `bv*[height<=1080]+ba/b[height<=1080]/bv*+ba/b/best` — mantém a
      preferência ≤1080p primeiro (comportamento normal inalterado) e afrouxa
      progressivamente: melhor vídeo+áudio sem limite de altura → progressivo

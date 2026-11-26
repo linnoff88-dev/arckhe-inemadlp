@@ -21,4 +21,4 @@ EXPOSE 8000
 # o suporte a EJS/deno. A atualizacao nao pode derrubar o servico: se a
 # rede/PyPI falhar, segue com a versao ja instalada (mas o erro fica
 # visivel no log).
-CMD ["sh", "-c", "pip install --no-cache-dir -q -U 'yt-dlp[default]' deno || echo 'AVISO: falha ao atualizar yt-dlp/deno, seguindo com a versao instalada' >&2; exec uvicorn inemadlp.api:app --host 0.0.0.0 --port 8000"]
+CMD ["sh", "-c", "pip install --no-cache-dir -q -U 'yt-dlp[default]' deno || echo 'AVISO: falha ao atualizar yt-dlp/deno, seguindo com a versao instalada' >&2; exec uvicorn ARCKHÉdlp.api:app --host 0.0.0.0 --port 8000"]

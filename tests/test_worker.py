@@ -5,10 +5,10 @@ from pathlib import Path
 
 import pytest
 
-from inemadlp import transcritor, worker
-from inemadlp.config import load_settings
-from inemadlp.downloader import DownloadError, DownloadResult
-from inemadlp.store import ERROR, PENDING, READY, RUNNING, Store
+from ARCKHÉdlp import transcritor, worker
+from ARCKHÉdlp.config import load_settings
+from ARCKHÉdlp.downloader import DownloadError, DownloadResult
+from ARCKHÉdlp.store import ERROR, PENDING, READY, RUNNING, Store
 
 
 @pytest.fixture
@@ -134,7 +134,7 @@ def test_run_forever_survives_failing_iteration(ambiente):
         return original_run_one(store, settings, now, download_fn=_download_falso)
 
     async def cenario():
-        import inemadlp.worker as worker_mod
+        import ARCKHÉdlp.worker as worker_mod
         antigo = worker_mod.run_one
         worker_mod.run_one = run_one_instavel
         try:
@@ -294,7 +294,7 @@ def test_transcricao_sucesso_via_run_one(ambiente_com_groq):
         arquivo.write_bytes(b"audio")
         return DownloadResult(path=arquivo, title="T", size=5)
 
-    import inemadlp.worker as worker_mod
+    import ARCKHÉdlp.worker as worker_mod
     original = worker_mod._processar_transcricao
 
     def _wrapped(store, settings, job, download_fn=download_fn, **kwargs):

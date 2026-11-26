@@ -1,5 +1,5 @@
 [project]
-name = "inemadlp"
+name = "ARCKHÉdlp"
 dynamic = ["version"]
 requires-python = ">=3.12"
 dependencies = [
@@ -22,10 +22,10 @@ build-backend = "setuptools.build_meta"
 where = ["src"]
 
 [tool.setuptools.package-data]
-inemadlp = ["web/*"]
+ARCKHÉdlp = ["web/*"]
 
 [tool.setuptools.dynamic]
-version = {attr = "inemadlp.__version__"}
+version = {attr = "ARCKHÉdlp.__version__"}
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

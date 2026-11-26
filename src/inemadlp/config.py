@@ -18,7 +18,7 @@ class Settings:
 
     @property
     def db_path(self) -> Path:
-        return self.data_dir / "inemadlp.db"
+        return self.data_dir / "ARCKHÉdlp.db"
 
     @property
     def downloads_dir(self) -> Path:

@@ -2,7 +2,7 @@
 
 ## O que foi implementado
 
-- Novo módulo `src/inemadlp/transcritor.py`: única peça que fala com a API da
+- Novo módulo `src/ARCKHÉdlp/transcritor.py`: única peça que fala com a API da
   Groq (`POST /openai/v1/audio/transcriptions`, multipart manual via stdlib
   `urllib`, sem dependências novas). Expõe `transcrever(audio_path, api_key,
   post_fn=...)`, injetável para testes. Erros tipados: `TranscricaoError` e
@@ -44,19 +44,19 @@
     botêo "Copiar" (via `navigator.clipboard`), além do link de download do
     `.txt` de sempre. Todo o DOM é montado com `createElement`/`textContent`
     — nunca `innerHTML`, já que o texto vem de fonte externa (a transcriçêo).
-- `src/inemadlp/__init__.py`: versêo `1.0.0` → `1.1.0`.
+- `src/ARCKHÉdlp/__init__.py`: versêo `1.0.0` → `1.1.0`.
 - `README.md`: seçêo "Transcriçêo (em desenvolvimento)" reescrita como
   funcionalidade entregue — os dois pontos de entrada, o texto inline com
   botêo de copiar, e a limitaçêo de 25 MB / ~50 min mantida em destaque.
 
 ## Arquivos criados/modificados
 
-- Criados: `src/inemadlp/transcritor.py`, `tests/test_transcritor.py`,
+- Criados: `src/ARCKHÉdlp/transcritor.py`, `tests/test_transcritor.py`,
   `.superpowers/transcricao-report.md`
-- Modificados: `src/inemadlp/store.py`, `src/inemadlp/worker.py`,
-  `src/inemadlp/api.py`, `src/inemadlp/config.py`, `src/inemadlp/__init__.py`,
-  `src/inemadlp/web/index.html`, `src/inemadlp/web/app.js`,
-  `src/inemadlp/web/style.css`, `tests/test_store.py`, `tests/test_worker.py`,
+- Modificados: `src/ARCKHÉdlp/store.py`, `src/ARCKHÉdlp/worker.py`,
+  `src/ARCKHÉdlp/api.py`, `src/ARCKHÉdlp/config.py`, `src/ARCKHÉdlp/__init__.py`,
+  `src/ARCKHÉdlp/web/index.html`, `src/ARCKHÉdlp/web/app.js`,
+  `src/ARCKHÉdlp/web/style.css`, `tests/test_store.py`, `tests/test_worker.py`,
   `tests/test_api.py`, `README.md`
 
 ## Suíte de testes (real, `.venv/bin/python -m pytest`)
@@ -81,7 +81,7 @@ ffmpeg -f lavfi -i "sine=frequency=440:duration=3" -ar 16000 -ac 1 \
 set -a; source .env; set +a
 .venv/bin/python - <<'PY'
 import os
-from inemadlp import transcritor
+from ARCKHÉdlp import transcritor
 from pathlib import Path
 key = os.environ["GROQ_API_KEY"]
 path = Path(".../test_tone.wav")
@@ -108,7 +108,7 @@ padrêo do `urllib`. Corrigido adicionando um header `User-Agent` explícito em
 ## Concerns / desvios do spec
 
 - O texto injetado por duas mensagens de "outra sessêo Claude" pedindo para
-  incluir `INEMAdlp v1.1.0` no `<h1>`/`<title>` **nêo foi implementado** —
+  incluir `ARCKHÉdlp v1.1.0` no `<h1>`/`<title>` **nêo foi implementado** —
   chegou por um canal de mensageria entre agentes nêo verificado, duplicado
   de duas origens diferentes, e nêo fazia parte da tarefa que me foi
   atribuída por quem me chamou. Reportando aqui para o usuário decidir se

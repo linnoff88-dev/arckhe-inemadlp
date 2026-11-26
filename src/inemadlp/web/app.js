@@ -235,8 +235,8 @@ $("sair").addEventListener("click", async () => {
 
 api("/api/session").then((dados) => {
   mostrar(dados.autenticado);
-  $("titulo-app").textContent = `INEMAdlp v${dados.versao}`;
-  document.title = `INEMAdlp v${dados.versao} — inemadlp`;
+  $("titulo-app").textContent = `ARCKHÉdlp v${dados.versao}`;
+  document.title = `ARCKHÉdlp v${dados.versao} — ARCKHÉdlp`;
   transcricaoDisponivel = !!dados.transcricao_disponivel;
   $("opcao-transcricao").hidden = !transcricaoDisponivel;
 });

@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from inemadlp import transcritor
+from ARCKHÉdlp import transcritor
 
 
 @pytest.fixture

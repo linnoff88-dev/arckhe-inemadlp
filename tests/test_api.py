@@ -1,10 +1,10 @@
 import pytest
 from fastapi.testclient import TestClient
 
-import inemadlp
-from inemadlp.api import create_app
-from inemadlp.config import load_settings
-from inemadlp.store import Store
+import ARCKHÉdlp
+from ARCKHÉdlp.api import create_app
+from ARCKHÉdlp.config import load_settings
+from ARCKHÉdlp.store import Store
 
 SENHA = "senha-de-teste"
 TOKEN = "token-de-teste"
@@ -82,7 +82,7 @@ def test_session_endpoint_reports_state(ambiente):
 def test_session_endpoint_reports_version(ambiente):
     cliente, _, _ = ambiente
     resposta = cliente.get("/api/session").json()
-    assert resposta["versao"] == inemadlp.__version__
+    assert resposta["versao"] == ARCKHÉdlp.__version__
 
 
 def test_logout_clears_session(logado):
@@ -201,7 +201,7 @@ def test_serves_the_pwa(ambiente):
     cliente, _, _ = ambiente
     resposta = cliente.get("/")
     assert resposta.status_code == 200
-    assert "inemadlp" in resposta.text.lower()
+    assert "ARCKHÉdlp" in resposta.text.lower()
 
 
 def test_transcricao_sem_chave_groq_e_400(logado):

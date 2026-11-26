@@ -63,7 +63,7 @@ def transcrever(
         "Content-Type": f"multipart/form-data; boundary={boundary}",
         # Sem User-Agent explícito, o Cloudflare da Groq bloqueia o urllib
         # padrêo do Python (erro 1010).
-        "User-Agent": "inemadlp/1.1.0 (+https://github.com/inematds/inemadlp)",
+        "User-Agent": "ARCKHÉdlp/1.1.0 (+https://github.com/linnoff88-dev/ARCKHÉdlp)",
     }
     status, resposta_bytes = post_fn(API_URL, headers, corpo)
 

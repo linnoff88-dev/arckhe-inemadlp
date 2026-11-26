@@ -6,9 +6,9 @@ import subprocess
 import time
 from pathlib import Path
 
-from inemadlp import downloader, reaper, transcritor
-from inemadlp.config import Settings
-from inemadlp.store import READY, Store
+from ARCKHÉdlp import downloader, reaper, transcritor
+from ARCKHÉdlp.config import Settings
+from ARCKHÉdlp.store import READY, Store
 
 logger = logging.getLogger(__name__)
 

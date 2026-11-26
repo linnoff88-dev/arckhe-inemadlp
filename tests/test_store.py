@@ -1,6 +1,6 @@
 import pytest
 
-from inemadlp.store import ERROR, EXPIRED, PENDING, READY, RUNNING, Store
+from ARCKHÉdlp.store import ERROR, EXPIRED, PENDING, READY, RUNNING, Store
 
 
 @pytest.fixture

@@ -1,4 +1,4 @@
-ï»¿# inemadlp
+ï»¿# ARCKHÉdlp
 
 **ê°Å¸â¡Â§ê°Å¸â¡Â· [PortuguêÂªs](README.md) êÂ· ê°Å¸â¡Âºê°Å¸â¡Â¸ [English](README.en.md) êÂ· ê°Å¸â¡Âªê°Å¸â¡Â¸ [EspaêÂ±ol](README.es.md)**
 
@@ -8,7 +8,7 @@ depois de 6 horas.
 
 ## ê°Å¸ââ Guia de uso
 
-Guia completo (landing + passo a passo): **https://inematds.github.io/inemadlp/guia/**
+Guia completo (landing + passo a passo): **https://linnoff88-dev.github.io/arckhe-/guia/**
 
 ---
 
@@ -123,8 +123,8 @@ containers e imprime a senha no fim:
 ```bash
 ssh usuario@203.0.113.10
 
-git clone https://github.com/inematds/inemadlp.git
-cd inemadlp
+git clone https://github.com/linnoff88-dev/ARCKHÉdlp.git
+cd ARCKHÉdlp
 ./instalar.sh dlp.seudominio
 ```
 
@@ -144,8 +144,8 @@ Se preferir fazer êÂ  mêÂ£o, ou entender cada peêÂ§a:
 ```bash
 ssh usuario@203.0.113.10
 
-git clone https://github.com/inematds/inemadlp.git
-cd inemadlp
+git clone https://github.com/linnoff88-dev/ARCKHÉdlp.git
+cd ARCKHÉdlp
 ```
 
 ### 2. Gerar os trêÂªs segredos
@@ -229,7 +229,7 @@ esquisita para lembrar.
 
 | Porta | Quem usa | Precisa estar aberta? |
 |---|---|---|
-| **443** | HTTPS ê¢â¬â êÂ© por onde vocêÂª usa o inemadlp | **sim** |
+| **443** | HTTPS ê¢â¬â êÂ© por onde vocêÂª usa o ARCKHÉdlp | **sim** |
 | **80** | O Caddy, para emitir/renovar o certificado e redirecionar para o 443 | **sim** (sem ela o HTTPS nêÂ£o êÂ© emitido) |
 | **22** | Seu `ssh` para administrar a VPS | **sim** |
 | 8000 | O app, **sêÂ³ dentro** da rede do Docker | **nêÂ£o** ê¢â¬â e nêÂ£o deve ser |
@@ -287,7 +287,7 @@ IP êÂ© de datacenter. No Edge ou no Chrome, **logado** no YouTube:
 
 1. instale a extensêÂ£o [**Get cookies.txt LOCALLY**](https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc);
 2. abra o YouTube, clique na extensêÂ£o e exporte o `cookies.txt`;
-3. no inemadlp, abra o painel **Cookies** e envie o arquivo.
+3. no ARCKHÉdlp, abra o painel **Cookies** e envie o arquivo.
 
 O painel passa a mostrar a data do êÂºltimo envio.
 
@@ -316,7 +316,7 @@ Os cookies sêÂ£o a prova de que existe uma conta logada por trêÂ¡s. Vo
 
 Cookies **nêÂ£o sêÂ£o a sua senha**. SêÂ£o a sua sessêÂ£o jêÂ¡ aberta. Ainda assim, quem
 tiver o arquivo entra na sua conta ê¢â¬â por isso ele sêÂ³ vive dentro da sua VPS,
-protegido pela senha do inemadlp.
+protegido pela senha do ARCKHÉdlp.
 
 ### Passo a passo (Windows, Edge ou Chrome)
 
@@ -344,10 +344,10 @@ peêÂ§a de quebra-cabeêÂ§a ê°Å¸Â§Â© para achêÂ¡-la) e esco
 ê¢â â `cookies.txt`).
 
 Um arquivo `cookies.txt` cai na sua pasta de Downloads. Ele comeêÂ§a com a linha
-`# Netscape HTTP Cookie File` ê¢â¬â o inemadlp recusa o arquivo se essa linha nêÂ£o
+`# Netscape HTTP Cookie File` ê¢â¬â o ARCKHÉdlp recusa o arquivo se essa linha nêÂ£o
 estiver lêÂ¡, justamente porque o yt-dlp tambêÂ©m recusaria.
 
-O inemadlp tambêÂ©m aceita o export em **JSON** que algumas versêÂµes dessa (e de
+O ARCKHÉdlp tambêÂ©m aceita o export em **JSON** que algumas versêÂµes dessa (e de
 outras) extensêÂµes oferecem ê¢â¬â se a pêÂ¡gina de exportaêÂ§êÂ£o te der a escolher entre
 `cookies.txt` e JSON, **prefira `cookies.txt`**: êÂ© o formato que o yt-dlp lêÂª
 nativamente, entêÂ£o hêÂ¡ uma etapa de conversêÂ£o a menos e menos chance de erro. Se
@@ -355,7 +355,7 @@ o painel recusar o arquivo, a mensagem agora explica o motivo (JSON malformado,
 pêÂ¡gina HTML salva por engano, campos separados por espaêÂ§o em vez de TAB,
 arquivo vazio etc.) e o que fazer para corrigir.
 
-**4. Enviar para o inemadlp**
+**4. Enviar para o ARCKHÉdlp**
 
 1. abra `https://seu-dominio` (no PC mesmo, êÂ© mais fêÂ¡cil que no celular);
 2. entre com a senha, se pedir;
@@ -400,7 +400,7 @@ DLP_URL=https://seu-dominio DLP_UPLOAD_TOKEN=<token> ./sync-cookies.sh
 E, se quiser nunca mais ver o erro, um cron semanal:
 
 ```cron
-0 9 * * 1 DLP_URL=https://seu-dominio DLP_UPLOAD_TOKEN=<token> /caminho/para/inemadlp/sync-cookies.sh
+0 9 * * 1 DLP_URL=https://seu-dominio DLP_UPLOAD_TOKEN=<token> /caminho/para/ARCKHÉdlp/sync-cookies.sh
 ```
 
 ---
@@ -432,7 +432,7 @@ Acima disso o job êÂ© **recusado com um aviso** dizendo a duraêÂ§ê�
 sem gastar chamada êÂ  API. NêÂ£o hêÂ¡ fatiamento automêÂ¡tico: seria possêÂ­vel cortar o
 êÂ¡udio em pedaêÂ§os e emendar o texto, mas isso foi deliberadamente deixado de fora
 para manter a coisa simples. Aula longa e podcast, portanto, nêÂ£o sêÂ£o transcritos
-aqui ê¢â¬â para esses, use o inemavox.
+aqui ê¢â¬â para esses, use o ARCKHÉvox.
 
 Exige `GROQ_API_KEY` no `.env`. Sem a chave, a opêÂ§êÂ£o nêÂ£o aparece na interface.
 
@@ -447,7 +447,7 @@ US$ 0,04 por hora de êÂ¡udio.
 Na VPS, um comando:
 
 ```bash
-cd inemadlp
+cd ARCKHÉdlp
 ./atualizar.sh
 ```
 
@@ -471,7 +471,7 @@ O `--build` êÂ© obrigatêÂ³rio ê¢â¬â sem ele o Docker reapro
 atualizaêÂ§êÂ£o nêÂ£o tem efeito nenhum.
 
 Depois de atualizar, a versêÂ£o aparece discretamente no rodapêÂ© da interface
-(`inemadlp vX.Y.Z`) ê¢â¬â basta abrir o site e conferir se bate com a versêÂ£o nova
+(`ARCKHÉdlp vX.Y.Z`) ê¢â¬â basta abrir o site e conferir se bate com a versêÂ£o nova
 antes de considerar a VPS atualizada.
 
 ---

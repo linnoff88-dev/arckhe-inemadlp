@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Extrai os cookies do Firefox local e envia para o inemadlp.
+# Extrai os cookies do Firefox local e envia para o ARCKHÉdlp.
 # Uso: DLP_URL=https://dlp.exemplo DLP_UPLOAD_TOKEN=... ./sync-cookies.sh
 set -euo pipefail
 
