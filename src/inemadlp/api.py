@@ -74,7 +74,7 @@ def create_app(settings: Settings, store: Store, start_worker: bool = True) -> F
 
     def exigir_sessao(request: Request) -> None:
         if not sessao_valida(request):
-            raise HTTPException(status_code=401, detail="não autenticado")
+            raise HTTPException(status_code=401, detail="nêo autenticado")
 
     @app.post("/api/login", status_code=204)
     def login(corpo: LoginBody, response: Response):
@@ -119,16 +119,16 @@ def create_app(settings: Settings, store: Store, start_worker: bool = True) -> F
             if not settings.groq_api_key:
                 raise HTTPException(
                     status_code=400,
-                    detail="transcrição indisponível: nenhuma GROQ_API_KEY configurada no servidor",
+                    detail="transcriçêo indisponível: nenhuma GROQ_API_KEY configurada no servidor",
                 )
             if corpo.origem is not None:
                 origem_job = store.get(corpo.origem)
                 if origem_job is None:
-                    raise HTTPException(status_code=400, detail="job de origem não encontrado")
+                    raise HTTPException(status_code=400, detail="job de origem nêo encontrado")
                 if origem_job.format == "transcricao":
                     raise HTTPException(
                         status_code=400,
-                        detail="job de origem não pode ser outra transcrição",
+                        detail="job de origem nêo pode ser outra transcriçêo",
                     )
         return {
             "id": store.create(url, corpo.formato, now=int(time.time()), origem=corpo.origem).id
@@ -153,7 +153,7 @@ def create_app(settings: Settings, store: Store, start_worker: bool = True) -> F
             x_upload_token, settings.upload_token
         )
         if not autorizado:
-            raise HTTPException(status_code=401, detail="não autenticado")
+            raise HTTPException(status_code=401, detail="nêo autenticado")
         form = await request.form()
         arquivo = form.get("arquivo")
         if not isinstance(arquivo, StarletteUploadFile):

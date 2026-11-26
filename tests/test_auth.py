@@ -54,6 +54,6 @@ def test_corrupted_payload_in_session_is_rejected():
     invalid_json = base64.urlsafe_b64encode(b"{invalid").rstrip(b"=").decode()
     signed_token = signer.sign(invalid_json).decode() if isinstance(signer.sign(invalid_json), bytes) else signer.sign(invalid_json)
 
-    # Este token tem assinatura válida mas payload que não pode ser desserializado
-    # Deve retornar False (não lançar BadPayload)
+    # Este token tem assinatura válida mas payload que nêo pode ser desserializado
+    # Deve retornar False (nêo lançar BadPayload)
     assert auth.is_valid_session(signed_token, CHAVE) is False

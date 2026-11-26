@@ -66,11 +66,11 @@ def test_purges_history_after_thirty_days(ambiente):
 
 
 def test_permission_error_not_counted_and_retried(ambiente, monkeypatch):
-    """Pasta que não pode ser removida não é contada e fica READY para retry."""
+    """Pasta que nêo pode ser removida nêo é contada e fica READY para retry."""
     store, downloads = ambiente
     job = _job_pronto(store, downloads, "https://a", criado_em=0)
 
-    # Monkeypatch shutil.rmtree para simular erro de permissão
+    # Monkeypatch shutil.rmtree para simular erro de permissêo
     import shutil
     original_rmtree = shutil.rmtree
     def mock_rmtree(path, *args, **kwargs):
@@ -83,7 +83,7 @@ def test_permission_error_not_counted_and_retried(ambiente, monkeypatch):
     # Arquivo ainda deve existir no disco
     assert (downloads / job.id / "v.mp4").exists()
 
-    # Job deve continuar READY (não marcado como expirado)
+    # Job deve continuar READY (nêo marcado como expirado)
     assert store.get(job.id).status == READY
 
     # Restaura para o próximo teste
@@ -93,7 +93,7 @@ def test_permission_error_not_counted_and_retried(ambiente, monkeypatch):
 def test_deletes_dir_of_error_job_past_ttl(ambiente):
     """FINDING 1: job que terminou em erro (ex.: container reiniciado a meio do
     download) também deve ter sua pasta reclamada passado o TTL — hoje
-    list_expirable só olha READY, então isso falha sem o fix."""
+    list_expirable só olha READY, entêo isso falha sem o fix."""
     store, downloads = ambiente
     job = store.create("https://a", "video", now=0)
     store.claim_next(now=0)
@@ -109,7 +109,7 @@ def test_deletes_dir_of_error_job_past_ttl(ambiente):
 
 def test_sweeps_orphan_directory_with_no_db_row(ambiente):
     """FINDING 1: pasta cujo job já foi purgado do banco (error > 30 dias) fica
-    órfã e deve ser varrida mesmo sem nenhuma linha apontando pra ela."""
+    órfê e deve ser varrida mesmo sem nenhuma linha apontando pra ela."""
     store, downloads = ambiente
     orfa = downloads / "sem-dono-nenhum"
     orfa.mkdir()
@@ -120,8 +120,8 @@ def test_sweeps_orphan_directory_with_no_db_row(ambiente):
 
 
 def test_orphan_sweep_never_touches_pending_or_running_job_dir(ambiente):
-    """A varredura de órfãos não pode apagar a pasta de um job pending/running
-    (a pasta existe mas o job ainda não terminou)."""
+    """A varredura de órfêos nêo pode apagar a pasta de um job pending/running
+    (a pasta existe mas o job ainda nêo terminou)."""
     store, downloads = ambiente
     rodando = store.create("https://b", "video", now=0)
     store.claim_next(now=0)
@@ -150,7 +150,7 @@ def test_missing_folder_counted_and_marked_expired(ambiente):
     (downloads / job.id / "v.mp4").unlink()
     (downloads / job.id).rmdir()
 
-    # Deve contar como deletada mesmo que a pasta não exista
+    # Deve contar como deletada mesmo que a pasta nêo exista
     assert reaper.reap(store, downloads, ttl_hours=6, now=7 * HORA) == 1
 
     # Job deve estar marcado como expirado

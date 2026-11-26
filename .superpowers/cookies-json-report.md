@@ -2,28 +2,28 @@
 
 ## Mudanças em `src/inemadlp/cookies.py`
 
-1. **Aceita o export JSON da extensão** (`Get cookies.txt LOCALLY` e similares):
+1. **Aceita o export JSON da extensêo** (`Get cookies.txt LOCALLY` e similares):
    - Detecta JSON quando o conteúdo (após strip) começa com `[` ou `{`.
    - `_converter_json` faz o parse e aceita tanto um array top-level de cookies
      quanto `{"cookies": [...]}`.
    - `_cookie_dict_para_linha` lê tolerantemente `domain`, `name`, `value`,
-     `path` (default `/`), `secure`, `httpOnly`/`httponly`, e a expiração em
-     `expirationDate`/`expires`/`expiry` (float ou int, ausente = sessão = `0`
+     `path` (default `/`), `secure`, `httpOnly`/`httponly`, e a expiraçêo em
+     `expirationDate`/`expires`/`expiry` (float ou int, ausente = sessêo = `0`
      via `_expiry_para_netscape`). Emite `#HttpOnly_` como prefixo de domínio
      quando `httpOnly` é verdadeiro, e o `domain_specified` a partir do ponto
      inicial do domínio.
    - Gera o cabeçalho `# Netscape HTTP Cookie File` e entrega o texto Netscape
-     resultante para o pipeline existente (`_sanitizar` + validação com
-     `YoutubeDLCookieJar`) — a garantia de aceitação continua sendo "o yt-dlp
+     resultante para o pipeline existente (`_sanitizar` + validaçêo com
+     `YoutubeDLCookieJar`) — a garantia de aceitaçêo continua sendo "o yt-dlp
      consegue carregar".
 
-2. **Mensagens de rejeição específicas, em português, com o próximo passo**:
+2. **Mensagens de rejeiçêo específicas, em português, com o próximo passo**:
    - conteúdo vazio/só espaço → "o arquivo enviado está vazio...";
    - JSON malformado → menciona "JSON" e orienta exportar como `cookies.txt`;
    - JSON parseado mas sem `cookies` usável (array vazio, chave errada, nenhum
      objeto com domain/name/value) → mensagens dedicadas;
    - HTML (`<...`) → menciona "HTML" e explica que a página foi salva por
-     engano em vez do export da extensão;
+     engano em vez do export da extensêo;
    - cabeçalho Netscape ausente → mensagem original, mantida;
    - campos separados por ESPAÇO em vez de TAB → `_campos_separados_por_espaco`
      detecta linhas sem tab que têm exatamente 7 tokens separados por espaço, e
@@ -34,14 +34,14 @@
      acima (contagem de linhas úteis == 0).
 
 Tudo o mais foi mantido: escrita atômica (tmp + `os.replace`), upload rejeitado
-não toca no `cookies.txt` anterior, o shape de `SaveResult`
+nêo toca no `cookies.txt` anterior, o shape de `SaveResult`
 (`cookies`/`corrigidos`/`descartados`) e a API que o consome.
 
 ## Testes (`tests/test_cookies.py`)
 
 Adicionados 7 testes novos, todos falhando antes da mudança:
 - `test_save_accepts_json_array_export` — array JSON realista (httpOnly misto,
-  `expirationDate` float, cookie de sessão sem expiração) é aceito e carrega no
+  `expirationDate` float, cookie de sessêo sem expiraçêo) é aceito e carrega no
   `YoutubeDLCookieJar` com os nomes esperados.
 - `test_save_accepts_json_object_with_cookies_key` — wrapper `{"cookies": [...]}`.
 - `test_save_rejects_malformed_json` — JSON quebrado levanta `InvalidCookieFile`
@@ -56,9 +56,9 @@ Adicionados 7 testes novos, todos falhando antes da mudança:
 
 ## README.md
 
-Seção "Cookies" atualizada: menciona que tanto `cookies.txt` (Netscape) quanto
-o export JSON são aceitos, recomenda `cookies.txt` quando a extensão oferecer
-escolha, e nota que as mensagens de erro agora explicam o motivo da rejeição.
+Seçêo "Cookies" atualizada: menciona que tanto `cookies.txt` (Netscape) quanto
+o export JSON sêo aceitos, recomenda `cookies.txt` quando a extensêo oferecer
+escolha, e nota que as mensagens de erro agora explicam o motivo da rejeiçêo.
 
 ## Testes: resultado real
 

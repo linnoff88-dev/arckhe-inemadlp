@@ -130,7 +130,7 @@ def test_run_forever_survives_failing_iteration(ambiente):
     def run_one_instavel(store, settings, now, download_fn=_download_falso):
         chamadas["n"] += 1
         if chamadas["n"] == 1:
-            raise RuntimeError("falha inesperada na primeira iteração")
+            raise RuntimeError("falha inesperada na primeira iteraçêo")
         return original_run_one(store, settings, now, download_fn=_download_falso)
 
     async def cenario():
@@ -185,7 +185,7 @@ def test_transcricao_reusa_arquivo_de_origem_sem_baixar(ambiente_com_groq):
 
     def download_fn(**kwargs):
         chamou_download["sim"] = True
-        raise AssertionError("não deveria baixar de novo")
+        raise AssertionError("nêo deveria baixar de novo")
 
     def convert_capturando(origem, destino):
         convert_chamado_com["origem"] = Path(origem)
@@ -208,13 +208,13 @@ def test_transcricao_reusa_arquivo_de_origem_sem_baixar(ambiente_com_groq):
     )
     assert chamou_download["sim"] is False
     # a prova real de reuso: convert_fn tem que ter recebido o arquivo do
-    # job de ORIGEM, não um caminho qualquer.
+    # job de ORIGEM, nêo um caminho qualquer.
     assert convert_chamado_com["origem"] == pasta_fonte / "v.mp4"
     pronto = store.get(job.id)
     assert pronto.status == READY
     assert pronto.filename == "transcricao.txt"
     assert (pasta_fonte.parent / job.id / "transcricao.txt").read_text() == "texto transcrito"
-    # progresso avançou de verdade no caminho de reuso, não ficou congelado
+    # progresso avançou de verdade no caminho de reuso, nêo ficou congelado
     # em 0 do início ao fim (o bug original: on_progress só era ligado no
     # branch de re-download).
     assert progressos_registrados == [0.0, 40.0, 70.0, 100.0]
@@ -364,7 +364,7 @@ def test_duracao_segundos_retorna_duracao_real_com_tolerancia(audio_gerado):
 
 def test_duracao_segundos_arquivo_invalido_retorna_none(tmp_path):
     invalido = tmp_path / "nao_e_audio.txt"
-    invalido.write_text("isto não é áudio")
+    invalido.write_text("isto nêo é áudio")
     assert worker._duracao_segundos(invalido) is None
 
 

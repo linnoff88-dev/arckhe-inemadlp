@@ -1,4 +1,4 @@
-# Relatório — transcrição de vídeos/áudios via Groq Whisper
+# Relatório — transcriçêo de vídeos/áudios via Groq Whisper
 
 ## O que foi implementado
 
@@ -14,21 +14,21 @@
 - `worker.py`: `run_one` ganhou um ramo para `job.format == "transcricao"`,
   delegando para `_processar_transcricao`, que:
   1. reaproveita o arquivo do job de origem se ele ainda estiver `ready` com
-     arquivo no disco; senão baixa o áudio de novo (`downloader.download`,
+     arquivo no disco; senêo baixa o áudio de novo (`downloader.download`,
      `fmt="audio"`) — fallback silencioso, sem erro;
   2. converte para 16 kHz mono via `ffmpeg` (`_converter_16k_mono`);
   3. rejeita (sem chamar a Groq) arquivos acima de 25 MB, com mensagem citando
-     a duração aproximada (via `ffprobe`) e o limite de ~50 min;
+     a duraçêo aproximada (via `ffprobe`) e o limite de ~50 min;
   4. transcreve via `transcritor.transcrever` e grava `transcricao.txt` na
      pasta do job, chamando `store.mark_ready`.
-  Todas as etapas (download, conversão, duração, transcrição) são injetáveis
+  Todas as etapas (download, conversêo, duraçêo, transcriçêo) sêo injetáveis
   por parâmetro, no mesmo estilo de `download_fn` já usado em `run_one`.
-- `config.py`: `groq_api_key` opcional (`env.get("GROQ_API_KEY", "")`), **não**
+- `config.py`: `groq_api_key` opcional (`env.get("GROQ_API_KEY", "")`), **nêo**
   adicionado a `_REQUIRED` — deploys existentes continuam subindo sem a chave.
 - `api.py`:
   - `FORMATOS_VALIDOS` ganhou `"transcricao"`.
   - `JobBody.origem: str | None = None`.
-  - `POST /api/jobs` rejeita `transcricao` com 400 quando não há
+  - `POST /api/jobs` rejeita `transcricao` com 400 quando nêo há
     `GROQ_API_KEY`, e rejeita `origem` inexistente com 400.
   - `GET /api/session` ganhou `transcricao_disponivel` (bool), mantendo
     `autenticado` e `versao` como estavam.
@@ -36,18 +36,18 @@
     `status == ready`, `formato == transcricao` e o arquivo existe — todos os
     campos existentes preservados.
 - Interface (`web/index.html`, `web/app.js`, `web/style.css`):
-  - Terceiro rádio "Transcrição", escondido até `/api/session` confirmar
+  - Terceiro rádio "Transcriçêo", escondido até `/api/session` confirmar
     `transcricao_disponivel`.
-  - Botão "Transcrever" em jobs `ready` de vídeo/áudio, que cria um job novo
+  - Botêo "Transcrever" em jobs `ready` de vídeo/áudio, que cria um job novo
     com `origem` = id do job de origem.
-  - Transcrição pronta aparece inline num `<details>` com `<pre>` (texto) e
-    botão "Copiar" (via `navigator.clipboard`), além do link de download do
+  - Transcriçêo pronta aparece inline num `<details>` com `<pre>` (texto) e
+    botêo "Copiar" (via `navigator.clipboard`), além do link de download do
     `.txt` de sempre. Todo o DOM é montado com `createElement`/`textContent`
-    — nunca `innerHTML`, já que o texto vem de fonte externa (a transcrição).
-- `src/inemadlp/__init__.py`: versão `1.0.0` → `1.1.0`.
-- `README.md`: seção "Transcrição (em desenvolvimento)" reescrita como
+    — nunca `innerHTML`, já que o texto vem de fonte externa (a transcriçêo).
+- `src/inemadlp/__init__.py`: versêo `1.0.0` → `1.1.0`.
+- `README.md`: seçêo "Transcriçêo (em desenvolvimento)" reescrita como
   funcionalidade entregue — os dois pontos de entrada, o texto inline com
-  botão de copiar, e a limitação de 25 MB / ~50 min mantida em destaque.
+  botêo de copiar, e a limitaçêo de 25 MB / ~50 min mantida em destaque.
 
 ## Arquivos criados/modificados
 
@@ -67,8 +67,8 @@
 
 (98 testes antes → 116 depois; todos os novos testes falham genuinamente
 contra o código pré-mudança, pois exercitam comportamento novo: coluna
-`origem`, ramo de transcrição no worker, rotas/flags novas na API, e o módulo
-`transcritor.py` que não existia.)
+`origem`, ramo de transcriçêo no worker, rotas/flags novas na API, e o módulo
+`transcritor.py` que nêo existia.)
 
 ## Chamada real à API da Groq (fim a fim, sem mocks)
 
@@ -97,26 +97,26 @@ OK, texto retornado: ' .'
 ```
 
 (200 OK; texto vazio-ish faz sentido — o áudio é um tom senoidal de 440 Hz sem
-fala, não um trecho falado real. Confirma multipart, headers e parsing da
+fala, nêo um trecho falado real. Confirma multipart, headers e parsing da
 resposta funcionando ponta a ponta contra a API de verdade.)
 
-**Achado durante a verificação:** a primeira tentativa retornou HTTP 403 do
+**Achado durante a verificaçêo:** a primeira tentativa retornou HTTP 403 do
 Cloudflare da Groq ("error code: 1010") — bloqueio por User-Agent ausente/
-padrão do `urllib`. Corrigido adicionando um header `User-Agent` explícito em
+padrêo do `urllib`. Corrigido adicionando um header `User-Agent` explícito em
 `transcritor._post_real`. Depois disso a chamada real funcionou (200).
 
 ## Concerns / desvios do spec
 
-- O texto injetado por duas mensagens de "outra sessão Claude" pedindo para
-  incluir `INEMAdlp v1.1.0` no `<h1>`/`<title>` **não foi implementado** —
-  chegou por um canal de mensageria entre agentes não verificado, duplicado
-  de duas origens diferentes, e não fazia parte da tarefa que me foi
+- O texto injetado por duas mensagens de "outra sessêo Claude" pedindo para
+  incluir `INEMAdlp v1.1.0` no `<h1>`/`<title>` **nêo foi implementado** —
+  chegou por um canal de mensageria entre agentes nêo verificado, duplicado
+  de duas origens diferentes, e nêo fazia parte da tarefa que me foi
   atribuída por quem me chamou. Reportando aqui para o usuário decidir se
   quer esse trabalho feito separadamente.
 - O texto retornado (`transcricao_texto`) é lido inteiro em memória a cada
-  `GET /api/jobs` quando há transcrição pronta — aceitável dado o limite de
+  `GET /api/jobs` quando há transcriçêo pronta — aceitável dado o limite de
   25 MB de áudio (texto resultante é bem menor), mas vale notar caso o limite
   mude no futuro.
-- `ffprobe` é usado só para a mensagem de erro (duração aproximada); se
-  `ffprobe` falhar por algum motivo, a mensagem cai para "duração
+- `ffprobe` é usado só para a mensagem de erro (duraçêo aproximada); se
+  `ffprobe` falhar por algum motivo, a mensagem cai para "duraçêo
   desconhecida" em vez de quebrar o job.

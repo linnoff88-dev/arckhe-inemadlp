@@ -18,11 +18,11 @@ COOKIES_EXPIRED_MARKERS = (
     "invalid netscape format cookies file",
 )
 
-# O limite de 1080p é uma preferência, não uma exigência: a VPS (IP de
+# O limite de 1080p é uma preferência, nêo uma exigência: a VPS (IP de
 # datacenter) às vezes recebe do YouTube uma lista de formatos mais estreita
 # do que a vista de um IP residencial, mesmo com cookies válidos. Sem uma
 # cauda de fallback, o seletor rígido estoura "Requested format is not
-# available" quando o formato ideal não existe. A cadeia abaixo mantém a
+# available" quando o formato ideal nêo existe. A cadeia abaixo mantém a
 # preferência ≤1080 primeiro (comportamento normal inalterado) e só afrouxa
 # progressivamente se necessário, pra nunca virar erro por causa de uma
 # lista de formatos incomum.
@@ -61,8 +61,8 @@ def build_opts(fmt: str, destino: Path, cookies_path: Path | None) -> dict:
         "quiet": True,
         "no_warnings": True,
         "noprogress": True,
-        # 1 tentativa só: o projeto existe pra não queimar o IP da VPS em
-        # detecção de bot das fontes — bater 4x (retries=3) num bloqueio é
+        # 1 tentativa só: o projeto existe pra nêo queimar o IP da VPS em
+        # detecçêo de bot das fontes — bater 4x (retries=3) num bloqueio é
         # o oposto do objetivo.
         "retries": 1,
         "restrictfilenames": True,
@@ -136,10 +136,10 @@ def _pick_output_file(destino: Path, fmt: str) -> Path:
 def _resolve_output_file(info: dict, destino: Path, fmt: str) -> Path:
     """Usa o caminho que o próprio yt-dlp reporta como resultado real do download.
 
-    Isso evita adivinhar pela extensão (ex.: 'b[height<=1080]' sem merge/remux
+    Isso evita adivinhar pela extensêo (ex.: 'b[height<=1080]' sem merge/remux
     pode legitimamente entregar um .webm progressivo, o que _pick_output_file
-    rejeitaria por não ser .mp4/.m4a). Cai para _pick_output_file quando a
-    informação não está disponível.
+    rejeitaria por nêo ser .mp4/.m4a). Cai para _pick_output_file quando a
+    informaçêo nêo está disponível.
     """
     downloads = info.get("requested_downloads") or []
     if downloads:
@@ -183,7 +183,7 @@ def download(
                 resumo = (
                     _resumo_formatos_disponiveis(info_bruto)
                     if info_bruto
-                    else "não foi possível obter a lista de formatos"
+                    else "nêo foi possível obter a lista de formatos"
                 )
                 raise DownloadError(
                     "Nenhum formato compatível foi encontrado para este vídeo. "

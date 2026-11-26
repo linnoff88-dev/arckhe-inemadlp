@@ -15,8 +15,8 @@ logger = logging.getLogger(__name__)
 BOOT_MESSAGE = "o serviço foi reiniciado durante o download"
 
 # Limite deliberado: sem chunking automático. Convertemos para mp3 16kHz/mono
-# a 64kbit/s (CBR) — bitrate constante, então o tamanho não depende do
-# conteúdo do áudio (fala, música ou silêncio dão o mesmo tamanho por minuto).
+# a 64kbit/s (CBR) — bitrate constante, entêo o tamanho nêo depende do
+# conteúdo do áudio (fala, música ou silêncio dêo o mesmo tamanho por minuto).
 # Medido: 481.005 bytes/min -> 25 MB / 481.005 B/min ≈ 54,5 min. Usamos 54
 # (arredondado para baixo) para a mensagem nunca prometer mais do que o
 # código realmente aceita.
@@ -42,7 +42,7 @@ def _converter_16k_mono(origem: Path, destino: Path) -> None:
         )
     except subprocess.TimeoutExpired as erro:
         raise transcritor.TranscricaoError(
-            "conversão do áudio demorou demais e foi cancelada — tente novamente mais tarde"
+            "conversêo do áudio demorou demais e foi cancelada — tente novamente mais tarde"
         ) from erro
     if resultado.returncode != 0:
         raise RuntimeError(f"ffmpeg falhou ao converter o áudio: {resultado.stderr[-500:]}")
@@ -89,7 +89,7 @@ def _processar_transcricao(
 
     if not settings.groq_api_key:
         raise transcritor.TranscricaoError(
-            "transcrição indisponível: nenhuma GROQ_API_KEY configurada no servidor"
+            "transcriçêo indisponível: nenhuma GROQ_API_KEY configurada no servidor"
         )
 
     audio_original: Path | None = None
@@ -109,8 +109,8 @@ def _processar_transcricao(
         audio_original = resultado.path
         store.set_title(job.id, resultado.title)
     else:
-        # Reaproveitando arquivo já baixado: não há progresso de download,
-        # mas o job segue vivo — marca 0 explicitamente (não fica sem
+        # Reaproveitando arquivo já baixado: nêo há progresso de download,
+        # mas o job segue vivo — marca 0 explicitamente (nêo fica sem
         # nenhuma chamada a set_progress, que era o bug: o job parado em
         # progress=0 do estado inicial parecia travado em "baixando").
         store.set_progress(job.id, 0.0)
@@ -123,10 +123,10 @@ def _processar_transcricao(
     tamanho = convertido.stat().st_size
     if tamanho > LIMITE_BYTES:
         duracao = duration_fn(convertido)
-        duracao_txt = f"~{round(duracao / 60)} min" if duracao else "duração desconhecida"
+        duracao_txt = f"~{round(duracao / 60)} min" if duracao else "duraçêo desconhecida"
         raise transcritor.TranscricaoError(
             f"áudio longo demais para transcrever ({duracao_txt}) — o limite é de "
-            f"aproximadamente {LIMITE_MINUTOS_APROX} minutos por job, sem divisão automática"
+            f"aproximadamente {LIMITE_MINUTOS_APROX} minutos por job, sem divisêo automática"
         )
 
     texto = transcribe_fn(convertido, settings.groq_api_key)
@@ -139,7 +139,7 @@ def _processar_transcricao(
 
 def run_one(store: Store, settings: Settings, now: int, download_fn=downloader.download) -> bool:
     # Libera espaço antes de baixar: disco cheio é um modo de falha real.
-    # Uma falha no reap não pode impedir o processamento do job — só loga e segue.
+    # Uma falha no reap nêo pode impedir o processamento do job — só loga e segue.
     try:
         reaper.reap(store, settings.downloads_dir, settings.ttl_hours, now)
     except Exception as erro:
@@ -185,15 +185,15 @@ def run_one(store: Store, settings: Settings, now: int, download_fn=downloader.d
 async def run_forever(store: Store, settings: Settings, sleep_seconds: float = 2.0) -> None:
     while True:
         try:
-            # O to_thread bloqueia até o fim da iteração: se um cancel chegar
+            # O to_thread bloqueia até o fim da iteraçêo: se um cancel chegar
             # durante um download em andamento, o cancelamento só é efetivo
-            # entre jobs — limitação aceita, não há como interromper a
+            # entre jobs — limitaçêo aceita, nêo há como interromper a
             # chamada bloqueante de download_fn no meio do caminho.
             processou = await asyncio.to_thread(run_one, store, settings, int(time.time()))
         except asyncio.CancelledError:
             raise
         except Exception as erro:
-            logger.warning("iteração do worker falhou: %s", erro)
+            logger.warning("iteraçêo do worker falhou: %s", erro)
             processou = False
         if not processou:
             await asyncio.sleep(sleep_seconds)

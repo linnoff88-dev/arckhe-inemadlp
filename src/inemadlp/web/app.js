@@ -117,7 +117,7 @@ function linha(job) {
       const detalhes = document.createElement("details");
       detalhes.className = "transcricao-texto";
       const resumo = document.createElement("summary");
-      resumo.textContent = "Ver transcrição";
+      resumo.textContent = "Ver transcriçêo";
       detalhes.append(resumo);
 
       const texto = document.createElement("pre");
@@ -130,7 +130,7 @@ function linha(job) {
       copiar.textContent = "Copiar";
       copiar.addEventListener("click", async () => {
         const ok = await copiarTexto(job.transcricao_texto);
-        copiar.textContent = ok ? "Copiado!" : "Não foi possível copiar — selecione o texto manualmente";
+        copiar.textContent = ok ? "Copiado!" : "Nêo foi possível copiar — selecione o texto manualmente";
         setTimeout(() => { copiar.textContent = "Copiar"; }, ok ? 1500 : 3000);
       });
       detalhes.append(copiar);

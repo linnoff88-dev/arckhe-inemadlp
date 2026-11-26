@@ -126,29 +126,29 @@
 <section id="oque"><div class="wrap">
 <span class="chip">O que é</span>
 <h2>Um yt-dlp com interface, acessível do celular</h2>
-<p class="sub">Você abre uma página na sua VPS, cola a URL, escolhe vídeo ou áudio e recebe o arquivo. Por baixo é o yt-dlp de sempre — a diferença é não precisar de terminal, e o download sair de um IP residencial de confiança em vez do seu celular.</p>
+<p class="sub">Você abre uma página na sua VPS, cola a URL, escolhe vídeo ou áudio e recebe o arquivo. Por baixo é o yt-dlp de sempre — a diferença é nêo precisar de terminal, e o download sair de um IP residencial de confiança em vez do seu celular.</p>
 <div class="grid g3">
 <div class="card"><h3>📱 Funciona do celular</h3><p>A interface é uma PWA: instala na tela de início, entra uma vez com a senha e nunca mais pede login. Nada de app, nada de loja.</p></div>
-<div class="card"><h3>🧹 Não entope o disco</h3><p>Todo arquivo baixado é apagado 6 horas depois, e uma varredura recolhe também as sobras de downloads que falharam. A VPS não vira depósito.</p></div>
+<div class="card"><h3>🧹 Nêo entope o disco</h3><p>Todo arquivo baixado é apagado 6 horas depois, e uma varredura recolhe também as sobras de downloads que falharam. A VPS nêo vira depósito.</p></div>
 <div class="card"><h3>🍪 Passa pelo bloqueio</h3><p>Você envia os cookies do seu navegador logado pela própria interface. É o que evita o "Sign in to confirm you're not a bot" que barra IPs de datacenter.</p></div>
 </div>
 </div></section>
 <section id="fluxo"><div class="wrap">
 <span class="chip">Como funciona</span>
 <h2>Da URL ao arquivo, sem você acompanhar</h2>
-<p class="sub">Um processo só: FastAPI serve a interface e a API, e um worker consome a fila um job por vez — de propósito, para não levar rate-limit da fonte. O Caddy cuida do HTTPS.</p>
+<p class="sub">Um processo só: FastAPI serve a interface e a API, e um worker consome a fila um job por vez — de propósito, para nêo levar rate-limit da fonte. O Caddy cuida do HTTPS.</p>
 <div class="flow">
 <span>Cola o link</span><span class="arr">→</span>
 <span>Entra na fila</span><span class="arr">→</span>
 <span>yt-dlp baixa</span><span class="arr">→</span>
 <span>ffmpeg junta</span><span class="arr">→</span>
-<span>Botão "Baixar"</span><span class="arr">→</span>
+<span>Botêo "Baixar"</span><span class="arr">→</span>
 <span>Apaga em 6h</span>
 </div>
 <div class="grid g3" style="margin-top:26px">
 <div class="card"><h3>Um job por vez</h3><p>A fila é serial. Dois downloads simultâneos só aumentariam a chance de bloqueio na origem.</p></div>
 <div class="card"><h3>Sem retentativa automática</h3><p>Falhou, você reenfileira. Retentar sozinho contra uma fonte que bloqueou só queima o IP mais rápido.</p></div>
-<div class="card"><h3>Retomada de download</h3><p>A entrega suporta Range, então uma queda de sinal no celular continua de onde parou — por isso o TTL, e não apagar no primeiro download.</p></div>
+<div class="card"><h3>Retomada de download</h3><p>A entrega suporta Range, entêo uma queda de sinal no celular continua de onde parou — por isso o TTL, e nêo apagar no primeiro download.</p></div>
 </div>
 </div></section>
 <section id="pre"><div class="wrap">
@@ -160,29 +160,29 @@
 <span class="k">curl -fsSL https://get.docker.com | sh</span></pre></div>
 <div class="card"><h3>Um subdomínio</h3><p>Aponte um registro A para o IP da VPS <em>antes</em> de subir: o Caddy emite o certificado no primeiro acesso.</p><pre><span class="c"># exemplo</span>
 dlp.seudominio  A  <span class="s">203.0.113.10</span></pre></div>
-<div class="card"><h3>Um navegador logado</h3><p>No PC ou no celular, logado nas fontes de onde você baixa. É de lá que saem os cookies.</p><pre><span class="c"># extensão (Edge/Chrome)</span>
+<div class="card"><h3>Um navegador logado</h3><p>No PC ou no celular, logado nas fontes de onde você baixa. É de lá que saem os cookies.</p><pre><span class="c"># extensêo (Edge/Chrome)</span>
 <span class="k">Get cookies.txt LOCALLY</span></pre></div>
 </div>
 </div></section>
 <section id="guia"><div class="wrap">
 <span class="chip">Guia de uso · passo a passo</span>
 <h2>Do zero ao primeiro download</h2>
-<p class="sub">São cinco passos. Do terceiro em diante você já está usando pelo celular.</p>
+<p class="sub">Sêo cinco passos. Do terceiro em diante você já está usando pelo celular.</p>
 <div class="step"><div class="b">1</div><div>
 <h3>Clonar e rodar o instalador</h3>
-<p>Ele gera os três segredos, escreve o <code>.env</code> com a permissão certa, sobe os containers e imprime a sua senha no fim.</p>
+<p>Ele gera os três segredos, escreve o <code>.env</code> com a permissêo certa, sobe os containers e imprime a sua senha no fim.</p>
 <pre><span class="k">git clone https://github.com/inematds/inemadlp.git &amp;&amp; cd inemadlp</span>
-<span class="k">./instalar.sh dlp.seudominio</span>  <span class="c"># avisa se o DNS ainda não aponta pra cá</span></pre>
+<span class="k">./instalar.sh dlp.seudominio</span>  <span class="c"># avisa se o DNS ainda nêo aponta pra cá</span></pre>
 </div></div>
 <div class="step"><div class="b">2</div><div>
 <h3>Esperar o certificado</h3>
-<p>O Caddy pede o certificado no primeiro acesso — de 10 a 60 segundos. Prefere fazer à mão em vez do instalador? O <a href="https://github.com/inematds/inemadlp#readme">README</a> tem o caminho manual.</p>
+<p>O Caddy pede o certificado no primeiro acesso — de 10 a 60 segundos. Prefere fazer à mêo em vez do instalador? O <a href="https://github.com/inematds/inemadlp#readme">README</a> tem o caminho manual.</p>
 <pre><span class="k">docker compose logs -f caddy</span>   <span class="c"># espere "certificate obtained"</span>
 <span class="k">curl -I https://dlp.seudominio</span>  <span class="c"># HTTP/2 200 = no ar</span></pre>
 </div></div>
 <div class="step"><div class="b">3</div><div>
 <h3>Instalar no celular</h3>
-<p>Abra o domínio, entre com a senha e use "Adicionar à tela de início". A sessão não expira — você loga uma vez e pronto.</p>
+<p>Abra o domínio, entre com a senha e use "Adicionar à tela de início". A sessêo nêo expira — você loga uma vez e pronto.</p>
 <pre><span class="c"># no navegador do celular</span>
 <span class="s">https://dlp.seudominio</span></pre>
 </div></div>
@@ -190,9 +190,9 @@ dlp.seudominio  A  <span class="s">203.0.113.10</span></pre></div>
 <h3>Enviar os cookies</h3>
 <p>Sem isso o YouTube recusa: o IP da VPS é de datacenter. No PC, com o Edge ou o Chrome <strong>logado no YouTube</strong>:</p>
 <ol style="color:var(--mut);margin:.2em 0 .9em;padding-left:1.2em">
-<li>instale a extensão <a href="https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc" rel="noopener" target="_blank"><strong>Get cookies.txt LOCALLY</strong></a> (uma vez só);</li>
+<li>instale a extensêo <a href="https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc" rel="noopener" target="_blank"><strong>Get cookies.txt LOCALLY</strong></a> (uma vez só);</li>
 <li>abra o YouTube e confirme que sua foto de perfil aparece;</li>
-<li>clique no ícone da extensão → <strong>Export</strong> — baixa um <code>cookies.txt</code>;</li>
+<li>clique no ícone da extensêo → <strong>Export</strong> — baixa um <code>cookies.txt</code>;</li>
 <li>no inemadlp, abra o painel <strong>Cookies</strong> e envie esse arquivo;</li>
 <li>apague o <code>cookies.txt</code> da pasta Downloads — ele dá acesso à sua conta.</li>
 </ol>
@@ -203,33 +203,33 @@ dlp.seudominio  A  <span class="s">203.0.113.10</span></pre></div>
 </div></div>
 <div class="step"><div class="b">5</div><div>
 <h3>Baixar</h3>
-<p>Cole a URL, escolha <strong>Vídeo</strong> (MP4 até 1080p) ou <strong>Áudio</strong> (M4A) e aguarde. O progresso aparece na lista e o botão "Baixar" surge no fim.</p>
-<pre><span class="c"># o arquivo fica disponível por 6 horas, então some</span>
+<p>Cole a URL, escolha <strong>Vídeo</strong> (MP4 até 1080p) ou <strong>Áudio</strong> (M4A) e aguarde. O progresso aparece na lista e o botêo "Baixar" surge no fim.</p>
+<pre><span class="c"># o arquivo fica disponível por 6 horas, entêo some</span>
 <span class="c"># quer mais tempo? DLP_TTL_HOURS no .env</span></pre>
 </div></div>
 </div></section>
 <section id="cookies"><div class="wrap">
 <span class="chip">Cookies</span>
 <h2>Por que isso existe, e quando renovar</h2>
-<p class="sub">O YouTube e as outras fontes desafiam IPs de datacenter. Os cookies de um navegador logado resolvem isso — e são a única manutenção recorrente do projeto.</p>
+<p class="sub">O YouTube e as outras fontes desafiam IPs de datacenter. Os cookies de um navegador logado resolvem isso — e sêo a única manutençêo recorrente do projeto.</p>
 <div class="grid g2">
-<div class="card"><h3>Quando um download falhar</h3><p>A própria interface diz <em>"cookies expirados"</em> quando reconhece o motivo. Aí você exporta de novo e reenvia — não precisa adivinhar. Na prática, cookies do YouTube duram semanas.</p></div>
-<div class="card"><h3>Por que não dá para automatizar no Windows</h3><p>Edge e Chrome cifram os cookies com App-Bound Encryption desde a versão 127: só o próprio navegador obtém a chave. Por isso o caminho principal é o upload, e não um script.</p></div>
+<div class="card"><h3>Quando um download falhar</h3><p>A própria interface diz <em>"cookies expirados"</em> quando reconhece o motivo. Aí você exporta de novo e reenvia — nêo precisa adivinhar. Na prática, cookies do YouTube duram semanas.</p></div>
+<div class="card"><h3>Por que nêo dá para automatizar no Windows</h3><p>Edge e Chrome cifram os cookies com App-Bound Encryption desde a versêo 127: só o próprio navegador obtém a chave. Por isso o caminho principal é o upload, e nêo um script.</p></div>
 </div>
 <div class="grid g2" style="margin-top:16px">
 <div class="card"><h3>Cron semanal (opcional)</h3><p>Na máquina Linux com Firefox logado, dá para nunca ver o erro.</p><pre><span class="c"># toda segunda, 9h</span>
 0 9 * * 1 DLP_URL=<span class="s">https://dlp.seudominio</span> DLP_UPLOAD_TOKEN=... /caminho/sync-cookies.sh</pre></div>
-<div class="card"><h3>Operação do dia a dia</h3><p>Praticamente nula.</p><pre><span class="k">docker compose logs -f app</span>     <span class="c"># ver o que houve</span>
+<div class="card"><h3>Operaçêo do dia a dia</h3><p>Praticamente nula.</p><pre><span class="k">docker compose logs -f app</span>     <span class="c"># ver o que houve</span>
 <span class="k">docker compose restart app</span>     <span class="c"># atualiza o yt-dlp no boot</span></pre></div>
 </div>
 </div></section>
 <section id="roadmap"><div class="wrap">
 <span class="chip">Roadmap</span>
 <h2>Onde está e o que ficou de fora</h2>
-<p class="sub">A v1 está completa e verificada ponta a ponta. O que não está aqui foi cortado de propósito — é ferramenta pessoal, não produto.</p>
-<div class="phase"><div class="tag">v1 ✓</div><div class="d"><strong>Completo</strong><span>Fila, download de vídeo e áudio, PWA com senha, upload de cookies, expiração automática, deploy com Docker e Caddy. 77 testes, mais um que baixa um vídeo real, mais verificação da interface no navegador.</span></div></div>
-<div class="phase"><div class="tag">Fora</div><div class="d"><strong>Cortado por YAGNI</strong><span>Escolha de resolução, playlists, legendas, corte de trechos, múltiplos usuários e retentativa automática. Cada um desses existiria para um público que este projeto não tem.</span></div></div>
-<div class="phase"><div class="tag">Talvez</div><div class="d"><strong>Se doer o suficiente</strong><span>Botão de reenfileirar com um clique (hoje você recola a URL) e um instalador de PWA mais completo no Android.</span></div></div>
+<p class="sub">A v1 está completa e verificada ponta a ponta. O que nêo está aqui foi cortado de propósito — é ferramenta pessoal, nêo produto.</p>
+<div class="phase"><div class="tag">v1 ✓</div><div class="d"><strong>Completo</strong><span>Fila, download de vídeo e áudio, PWA com senha, upload de cookies, expiraçêo automática, deploy com Docker e Caddy. 77 testes, mais um que baixa um vídeo real, mais verificaçêo da interface no navegador.</span></div></div>
+<div class="phase"><div class="tag">Fora</div><div class="d"><strong>Cortado por YAGNI</strong><span>Escolha de resoluçêo, playlists, legendas, corte de trechos, múltiplos usuários e retentativa automática. Cada um desses existiria para um público que este projeto nêo tem.</span></div></div>
+<div class="phase"><div class="tag">Talvez</div><div class="d"><strong>Se doer o suficiente</strong><span>Botêo de reenfileirar com um clique (hoje você recola a URL) e um instalador de PWA mais completo no Android.</span></div></div>
 </div></section>
 <footer>
 <div class="wrap">

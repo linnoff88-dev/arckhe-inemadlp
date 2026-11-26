@@ -37,15 +37,15 @@ for host, name, value, path, expiry, secure, http_only in conn.execute(
 PY
 
 # Conta linhas de cookie de verdade: ignora vazias e só o cabeçalho literal
-# "# Netscape HTTP Cookie File" — linhas "#HttpOnly_..." são cookies válidos
-# (o prefixo é do formato Netscape, não um comentário) e precisam ser contadas.
+# "# Netscape HTTP Cookie File" — linhas "#HttpOnly_..." sêo cookies válidos
+# (o prefixo é do formato Netscape, nêo um comentário) e precisam ser contadas.
 linhas="$(grep -cve '^# Netscape HTTP Cookie File$' -e '^$' "$TEMP/cookies.txt" || true)"
 if [ "${linhas:-0}" -eq 0 ]; then
   echo "nenhum cookie encontrado em $PERFIL — o Firefox está logado nas fontes?" >&2
   exit 1
 fi
 
-# O token não pode aparecer em argumentos de processo (ps/proc), então vai
+# O token nêo pode aparecer em argumentos de processo (ps/proc), entêo vai
 # num arquivo de config do curl dentro do diretório temporário já limpo pelo trap.
 CURL_CFG="$TEMP/curl.cfg"
 (umask 077 && : > "$CURL_CFG")

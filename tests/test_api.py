@@ -24,7 +24,7 @@ def ambiente(tmp_path):
     })
     store = Store(settings.db_path)
     app = create_app(settings, store, start_worker=False)
-    # base_url https: o cookie de sessão é Secure, e http.cookiejar (usado
+    # base_url https: o cookie de sessêo é Secure, e http.cookiejar (usado
     # pelo TestClient/httpx) só reenvia cookies Secure em requisições https.
     return TestClient(app, base_url="https://testserver"), store, settings
 
@@ -55,7 +55,7 @@ def logado_com_groq(ambiente_com_groq):
 def logado(ambiente):
     cliente, store, settings = ambiente
     # cliente autenticado próprio: cliente_anonimo (de `ambiente`) precisa
-    # continuar sem sessão nos testes que recebem os dois fixtures juntos.
+    # continuar sem sessêo nos testes que recebem os dois fixtures juntos.
     autenticado = TestClient(cliente.app, base_url="https://testserver")
     assert autenticado.post("/api/login", json={"senha": SENHA}).status_code == 204
     return autenticado, store, settings
@@ -237,7 +237,7 @@ def test_transcricao_com_origem_sendo_outra_transcricao_e_400(logado_com_groq):
         json={"url": "https://a", "formato": "transcricao", "origem": origem_id},
     )
     assert resposta.status_code == 400
-    assert "não pode ser outra transcrição" in resposta.json()["erro"]
+    assert "nêo pode ser outra transcriçêo" in resposta.json()["erro"]
 
 
 def test_session_reporta_disponibilidade_de_transcricao(ambiente, ambiente_com_groq):

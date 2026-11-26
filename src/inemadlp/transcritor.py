@@ -17,7 +17,7 @@ class TranscricaoError(Exception):
 
 
 class TranscricaoRateLimitError(TranscricaoError):
-    """Cota/limite de requisições excedido — não é um bug, é o plano da Groq."""
+    """Cota/limite de requisições excedido — nêo é um bug, é o plano da Groq."""
 
 
 def _corpo_multipart(campos: dict[str, str], arquivo: Path, campo_arquivo: str = "file") -> tuple[bytes, str]:
@@ -54,7 +54,7 @@ def transcrever(
     """Envia o áudio para a Groq e retorna o texto transcrito.
 
     post_fn recebe (url, headers, corpo) e devolve (status_code, corpo_bytes) —
-    ponto de injeção para os testes não baterem na rede de verdade.
+    ponto de injeçêo para os testes nêo baterem na rede de verdade.
     """
     audio_path = Path(audio_path)
     corpo, boundary = _corpo_multipart({"model": MODELO}, audio_path)
@@ -62,7 +62,7 @@ def transcrever(
         "Authorization": f"Bearer {api_key}",
         "Content-Type": f"multipart/form-data; boundary={boundary}",
         # Sem User-Agent explícito, o Cloudflare da Groq bloqueia o urllib
-        # padrão do Python (erro 1010).
+        # padrêo do Python (erro 1010).
         "User-Agent": "inemadlp/1.1.0 (+https://github.com/inematds/inemadlp)",
     }
     status, resposta_bytes = post_fn(API_URL, headers, corpo)
@@ -75,7 +75,7 @@ def transcrever(
     if status == 429:
         mensagem = (dados.get("error") or {}).get("message") if isinstance(dados, dict) else None
         raise TranscricaoRateLimitError(
-            "limite de uso da Groq foi atingido — não é um erro do sistema, é a cota "
+            "limite de uso da Groq foi atingido — nêo é um erro do sistema, é a cota "
             f"do plano configurado; tente novamente mais tarde"
             + (f" ({mensagem})" if mensagem else "")
         )
@@ -85,7 +85,7 @@ def transcrever(
         if isinstance(dados, dict):
             mensagem = (dados.get("error") or {}).get("message")
         raise TranscricaoError(
-            f"a Groq recusou a transcrição (HTTP {status})" + (f": {mensagem}" if mensagem else "")
+            f"a Groq recusou a transcriçêo (HTTP {status})" + (f": {mensagem}" if mensagem else "")
         )
 
     texto = dados.get("text") if isinstance(dados, dict) else None

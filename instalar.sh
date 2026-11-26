@@ -11,30 +11,30 @@ verde()   { printf '\033[32m%s\033[0m\n' "$1"; }
 vermelho(){ printf '\033[31m%s\033[0m\n' "$1" >&2; }
 
 echo
-amarelo "=== inemadlp — instalação ==="
+amarelo "=== inemadlp — instalaçêo ==="
 echo
 
 # ---------------------------------------------------------------- pré-requisitos
 if ! command -v docker >/dev/null 2>&1; then
-  vermelho "Docker não encontrado. Instale com:"
+  vermelho "Docker nêo encontrado. Instale com:"
   vermelho "  curl -fsSL https://get.docker.com | sh"
   exit 1
 fi
 if ! docker compose version >/dev/null 2>&1; then
-  vermelho "O plugin 'docker compose' não está disponível. Atualize o Docker."
+  vermelho "O plugin 'docker compose' nêo está disponível. Atualize o Docker."
   exit 1
 fi
 
-# ------------------------------------------------- instalação existente em outro lugar
+# ------------------------------------------------- instalaçêo existente em outro lugar
 # O erro clássico: clonar o repo de novo numa pasta diferente e rodar este script ali.
-# A instalação nova sobe com .env de exemplo (senha aleatória, banco vazio) e toma as
+# A instalaçêo nova sobe com .env de exemplo (senha aleatória, banco vazio) e toma as
 # portas 80/443 da antiga — o site continua "no ar", mas sem os seus dados e com o
-# domínio errado. Antes de qualquer coisa, procure uma instalação anterior.
+# domínio errado. Antes de qualquer coisa, procure uma instalaçêo anterior.
 AQUI="$(pwd -P)"
 OUTRA=""
 REAPROVEITADA=0
 
-# 1) por container do compose (pega instalação de pé OU parada)
+# 1) por container do compose (pega instalaçêo de pé OU parada)
 if command -v docker >/dev/null 2>&1; then
   for c in $(docker ps -aq --filter "label=com.docker.compose.project=inemadlp" 2>/dev/null); do
     d="$(docker inspect "$c" --format '{{index .Config.Labels "com.docker.compose.project.working_dir"}}' 2>/dev/null || true)"
@@ -58,14 +58,14 @@ fi
 
 if [ -n "$OUTRA" ]; then
   echo
-  amarelo "Já existe uma instalação do inemadlp em:"
+  amarelo "Já existe uma instalaçêo do inemadlp em:"
   amarelo "  $OUTRA"
   echo
   echo "Ela tem os seus dados: banco de jobs, cookies do yt-dlp, senha e tokens."
-  echo "Instalar uma SEGUNDA cópia aqui não substitui aquela — as duas disputam as"
+  echo "Instalar uma SEGUNDA cópia aqui nêo substitui aquela — as duas disputam as"
   echo "portas 80 e 443, e quem subir por último responde, com banco vazio e senha nova."
   echo
-  # mostra o que tem lá, pra decisão ser informada
+  # mostra o que tem lá, pra decisêo ser informada
   if [ -f "$OUTRA/data/inemadlp.db" ] && command -v python3 >/dev/null 2>&1; then
     JOBS="$(python3 -c "
 import sqlite3,sys
@@ -77,14 +77,14 @@ except Exception: print('?')" "$OUTRA/data/inemadlp.db" 2>/dev/null || echo '?')
   [ -f "$OUTRA/data/cookies.txt" ] && echo "  cookies.txt: presente"
   grep -s '^DLP_DOMAIN=' "$OUTRA/.env" | sed 's/^/  /'
   echo
-  echo "  [R] reaproveitar aquela instalação  (recomendado — atualiza e sobe lá)"
+  echo "  [R] reaproveitar aquela instalaçêo  (recomendado — atualiza e sobe lá)"
   echo "  [A] abortar"
   echo "  [N] instalar aqui assim mesmo       (só se você sabe o que está fazendo)"
   printf 'Escolha [R/a/n]: '
   read -r escolha
   case "${escolha:-R}" in
     n|N)
-      amarelo "Seguindo com uma instalação NOVA em $AQUI."
+      amarelo "Seguindo com uma instalaçêo NOVA em $AQUI."
       amarelo "Lembre de derrubar a outra antes: (cd $OUTRA && docker compose down)"
       ;;
     a|A)
@@ -113,7 +113,7 @@ gerar_segredo() {
 
 # ---------------------------------------------------------------------- domínio
 DOMINIO="${1:-}"
-# numa instalação reaproveitada, o domínio já está no .env — ofereça como padrão
+# numa instalaçêo reaproveitada, o domínio já está no .env — ofereça como padrêo
 DOMINIO_ATUAL=""
 [ -f .env ] && DOMINIO_ATUAL="$(grep -s '^DLP_DOMAIN=' .env | head -1 | cut -d= -f2-)"
 if [ -z "$DOMINIO" ]; then
@@ -128,24 +128,24 @@ if [ -z "$DOMINIO" ]; then
   [ -z "$DOMINIO" ] && DOMINIO="$DOMINIO_ATUAL"
 fi
 
-# limpa erros comuns de digitação em vez de deixar o Caddy quebrar depois
+# limpa erros comuns de digitaçêo em vez de deixar o Caddy quebrar depois
 DOMINIO="$(echo "$DOMINIO" | sed -E 's#^https?://##; s#/+$##; s/[[:space:]]//g')"
 if [ -z "$DOMINIO" ] || ! echo "$DOMINIO" | grep -qE '^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'; then
   vermelho "Domínio inválido: '$DOMINIO'"
   exit 1
 fi
 
-# avisa se o DNS ainda não aponta pra cá — o Caddy não consegue certificado sem isso
+# avisa se o DNS ainda nêo aponta pra cá — o Caddy nêo consegue certificado sem isso
 if command -v getent >/dev/null 2>&1; then
   IP_DOMINIO="$(getent hosts "$DOMINIO" | awk '{print $1}' | head -1 || true)"
   IP_AQUI="$(curl -fsS --max-time 5 https://api.ipify.org 2>/dev/null || true)"
   if [ -n "$IP_DOMINIO" ] && [ -n "$IP_AQUI" ] && [ "$IP_DOMINIO" != "$IP_AQUI" ]; then
-    amarelo "Atenção: $DOMINIO aponta para $IP_DOMINIO, mas esta máquina é $IP_AQUI."
+    amarelo "Atençêo: $DOMINIO aponta para $IP_DOMINIO, mas esta máquina é $IP_AQUI."
     amarelo "O certificado HTTPS só será emitido quando o DNS apontar para cá."
     printf 'Continuar assim mesmo? [s/N] '
     read -r r; [ "$r" = "s" ] || [ "$r" = "S" ] || exit 1
   elif [ -z "$IP_DOMINIO" ]; then
-    amarelo "Atenção: $DOMINIO ainda não resolve no DNS."
+    amarelo "Atençêo: $DOMINIO ainda nêo resolve no DNS."
     printf 'Continuar assim mesmo? [s/N] '
     read -r r; [ "$r" = "s" ] || [ "$r" = "S" ] || exit 1
   fi
@@ -165,7 +165,7 @@ if [ -f .env ]; then
     else
       printf 'DLP_DOMAIN=%s\n' "$DOMINIO" >> .env
     fi
-    # garante que não sobrou duplicata de execuções antigas
+    # garante que nêo sobrou duplicata de execuções antigas
     if [ "$(grep -c '^DLP_DOMAIN=' .env)" -gt 1 ]; then
       amarelo "Havia DLP_DOMAIN duplicado no .env — removendo as linhas extras."
       awk '!/^DLP_DOMAIN=/ { print } /^DLP_DOMAIN=/ && !visto { print; visto=1 }' .env > .env.tmp
@@ -183,7 +183,7 @@ fi
 if [ -n "$SENHA" ]; then
   umask 077
   cat > .env <<EOF
-# Gerado por instalar.sh — não versionar, não compartilhar.
+# Gerado por instalar.sh — nêo versionar, nêo compartilhar.
 # A senha abaixo é a única barreira entre a internet e os seus cookies.
 DLP_PASSWORD=$SENHA
 DLP_SECRET_KEY=$(gerar_segredo 32)
@@ -193,7 +193,7 @@ DLP_DATA_DIR=/data
 DLP_DOMAIN=$DOMINIO
 EOF
   chmod 600 .env
-  verde "✓ .env criado (permissão 600)"
+  verde "✓ .env criado (permissêo 600)"
 fi
 
 # ------------------------------------------------------------------------ subir
@@ -213,7 +213,7 @@ echo
 verde "=== pronto ==="
 echo
 echo "  Endereço:  https://$DOMINIO"
-echo "  Pasta:     $AQUI$([ "$REAPROVEITADA" = 1 ] && echo '  (instalação existente, reaproveitada)')"
+echo "  Pasta:     $AQUI$([ "$REAPROVEITADA" = 1 ] && echo '  (instalaçêo existente, reaproveitada)')"
 if [ -n "$SENHA" ]; then
   echo "  Senha:     $SENHA"
   amarelo "  ^ anote agora no seu gerenciador de senhas. Ela também está no .env."
@@ -227,7 +227,7 @@ echo
 echo "Próximos passos:"
 echo "  1. abra https://$DOMINIO no celular e entre com a senha"
 echo "  2. use 'Adicionar à tela de início'"
-echo "  3. envie os cookies pelo painel Cookies (veja o README, seção Cookies)"
+echo "  3. envie os cookies pelo painel Cookies (veja o README, seçêo Cookies)"
 echo
 echo "O token para o sync-cookies.sh está no .env:"
 echo "  grep DLP_UPLOAD_TOKEN .env"

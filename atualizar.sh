@@ -10,25 +10,25 @@ verde()   { printf '\033[32m%s\033[0m\n' "$1"; }
 vermelho(){ printf '\033[31m%s\033[0m\n' "$1" >&2; }
 
 echo
-amarelo "=== inemadlp — atualização ==="
+amarelo "=== inemadlp — atualizaçêo ==="
 echo
 
 if ! command -v docker >/dev/null 2>&1; then
-  vermelho "Docker não encontrado nesta máquina."
+  vermelho "Docker nêo encontrado nesta máquina."
   exit 1
 fi
 if [ ! -f .env ]; then
-  vermelho "Não achei o .env aqui. Você está na pasta certa? (esperado: a pasta do inemadlp)"
+  vermelho "Nêo achei o .env aqui. Você está na pasta certa? (esperado: a pasta do inemadlp)"
   exit 1
 fi
 
-# ------------------------------------------------- edições locais não commitadas
-# O .env não conta: ele é git-ignored e nunca aparece aqui.
+# ------------------------------------------------- edições locais nêo commitadas
+# O .env nêo conta: ele é git-ignored e nunca aparece aqui.
 if ! git diff --quiet || ! git diff --cached --quiet; then
-  amarelo "Há edições locais não commitadas nestes arquivos:"
+  amarelo "Há edições locais nêo commitadas nestes arquivos:"
   git diff --name-only HEAD | sed 's/^/  - /'
   echo
-  echo "Vou guardá-las com 'git stash' antes de atualizar. Elas NÃO são perdidas:"
+  echo "Vou guardá-las com 'git stash' antes de atualizar. Elas NêO sêo perdidas:"
   echo "  git stash list     mostra o que foi guardado"
   echo "  git stash pop      traz de volta, se você precisar"
   printf 'Continuar? [S/n] '
@@ -47,20 +47,20 @@ echo "Buscando atualizações..."
 git fetch --quiet origin
 
 if [ "$(git rev-parse HEAD)" = "$(git rev-parse '@{u}' 2>/dev/null || echo HEAD)" ]; then
-  verde "Já está na versão mais recente ($ANTES). Nada a fazer."
+  verde "Já está na versêo mais recente ($ANTES). Nada a fazer."
   echo "Se quiser reconstruir mesmo assim: docker compose up -d --build"
   exit 0
 fi
 
 echo
-echo "Novidades que vão entrar:"
+echo "Novidades que vêo entrar:"
 git --no-pager log --oneline HEAD..'@{u}' | sed 's/^/  /'
 echo
 
 # --ff-only: se divergir, para em vez de criar merge silencioso
 if ! git merge --ff-only '@{u}'; then
-  vermelho "O histórico local divergiu do remoto — não dá para atualizar automaticamente."
-  vermelho "Resolva à mão (git status) ou, se puder descartar o local: git reset --hard @{u}"
+  vermelho "O histórico local divergiu do remoto — nêo dá para atualizar automaticamente."
+  vermelho "Resolva à mêo (git status) ou, se puder descartar o local: git reset --hard @{u}"
   exit 1
 fi
 DEPOIS="$(git rev-parse --short HEAD)"
@@ -87,7 +87,7 @@ if [ -n "$DOMINIO" ]; then
   if [ "${CODIGO:-}" = "200" ]; then
     verde "✓ https://$DOMINIO respondendo (HTTP $CODIGO)"
   else
-    amarelo "Ainda não respondeu 200 (último: ${CODIGO:-sem resposta})."
+    amarelo "Ainda nêo respondeu 200 (último: ${CODIGO:-sem resposta})."
     amarelo "Veja o que houve: docker compose logs --tail=40 app caddy"
   fi
 fi

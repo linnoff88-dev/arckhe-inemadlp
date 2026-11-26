@@ -143,7 +143,7 @@ def test_pick_output_file_for_audio_ignores_non_m4a(tmp_path):
 def test_resolve_output_file_uses_requested_downloads_filepath(tmp_path):
     """FINDING 4: fonte progressiva pode entregar .webm sem merge/remux; o
     caminho autoritativo vem de info['requested_downloads'][0]['filepath'],
-    não da extensão adivinhada por _pick_output_file (que só aceita .mp4)."""
+    nêo da extensêo adivinhada por _pick_output_file (que só aceita .mp4)."""
     webm = tmp_path / "video.webm"
     webm.write_text("conteudo webm")
     info = {"requested_downloads": [{"filepath": str(webm)}]}

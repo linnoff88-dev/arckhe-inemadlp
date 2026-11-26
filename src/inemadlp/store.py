@@ -51,7 +51,7 @@ class Store:
             try:
                 conn.execute("ALTER TABLE jobs ADD COLUMN origem TEXT")
             except sqlite3.OperationalError:
-                pass  # coluna já existe: banco criado por uma versão anterior
+                pass  # coluna já existe: banco criado por uma versêo anterior
 
     def _conn(self) -> sqlite3.Connection:
         conn = sqlite3.connect(self._path, isolation_level=None)

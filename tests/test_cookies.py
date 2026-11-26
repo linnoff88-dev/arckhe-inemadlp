@@ -14,7 +14,7 @@ VALIDO = (
 
 # Linha exata do bug reportado: domínio com ponto inicial mas domain_specified=FALSE.
 # http.cookiejar._really_load assert domain_specified == initial_dot, e isso derruba
-# o carregamento do arquivo INTEIRO (não só essa linha).
+# o carregamento do arquivo INTEIRO (nêo só essa linha).
 LINHA_BUG_MSN = ".assets.msn.com\tFALSE\t/service/segments/recoitems\tFALSE\t0\t_C_Auth\t"
 
 
@@ -85,7 +85,7 @@ def test_save_repairs_bug_line_and_result_loads_cleanly(tmp_path):
     assert resultado.corrigidos == 1
     assert resultado.descartados == 0
 
-    # A prova que importa: o arquivo salvo carrega sem lançar exceção no yt-dlp.
+    # A prova que importa: o arquivo salvo carrega sem lançar exceçêo no yt-dlp.
     jar = YoutubeDLCookieJar(str(destino))
     jar.load(ignore_discard=True, ignore_expires=True)
     dominios = {c.domain for c in jar}
@@ -112,7 +112,7 @@ def test_save_repairs_domain_without_dot_and_true_flag(tmp_path):
 
 
 def test_save_drops_line_with_non_numeric_expiry(tmp_path):
-    """Linha com expiry não-numérico é descartada; o resto sobrevive e a contagem reflete isso."""
+    """Linha com expiry nêo-numérico é descartada; o resto sobrevive e a contagem reflete isso."""
     destino = tmp_path / "cookies.txt"
     conteudo = (
         "# Netscape HTTP Cookie File\n"
@@ -222,7 +222,7 @@ def test_save_rejects_empty_content(tmp_path):
 
 
 def test_save_all_lines_unusable_raises_and_keeps_previous_file(tmp_path):
-    """Arquivo cujas linhas são TODAS inutilizáveis levanta InvalidCookieFile e não toca
+    """Arquivo cujas linhas sêo TODAS inutilizáveis levanta InvalidCookieFile e nêo toca
     num cookies.txt anterior já existente."""
     destino = tmp_path / "cookies.txt"
     cookies.save(VALIDO, destino)
@@ -230,7 +230,7 @@ def test_save_all_lines_unusable_raises_and_keeps_previous_file(tmp_path):
     conteudo_ruim = (
         "# Netscape HTTP Cookie File\n"
         "campo1\tcampo2\tcampo3\n"  # menos de 7 campos
-        ".outro.com\tTRUE\t/\tTRUE\tnao-numero\tX\tY\n"  # expiry não-numérico
+        ".outro.com\tTRUE\t/\tTRUE\tnao-numero\tX\tY\n"  # expiry nêo-numérico
     )
     with pytest.raises(cookies.InvalidCookieFile):
         cookies.save(conteudo_ruim, destino)

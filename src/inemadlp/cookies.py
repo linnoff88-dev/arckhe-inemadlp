@@ -13,7 +13,7 @@ _CABECALHO_NETSCAPE = "# Netscape HTTP Cookie File"
 
 
 class InvalidCookieFile(ValueError):
-    """O conteúdo enviado não é um cookies.txt no formato Netscape."""
+    """O conteúdo enviado nêo é um cookies.txt no formato Netscape."""
 
 
 @dataclass
@@ -53,20 +53,20 @@ def _cookie_dict_para_linha(cookie: dict) -> str | None:
 
 
 def _converter_json(conteudo: str) -> str:
-    """Converte o export JSON da extensão (array de cookies, ou {"cookies": [...]}) em Netscape."""
+    """Converte o export JSON da extensêo (array de cookies, ou {"cookies": [...]}) em Netscape."""
     try:
         dados = json.loads(conteudo)
     except json.JSONDecodeError as erro:
         raise InvalidCookieFile(
-            "o arquivo parece estar em formato JSON mas não pôde ser lido "
-            f"({erro}) — na extensão, escolha exportar como cookies.txt (formato Netscape)"
+            "o arquivo parece estar em formato JSON mas nêo pôde ser lido "
+            f"({erro}) — na extensêo, escolha exportar como cookies.txt (formato Netscape)"
         ) from erro
 
     if isinstance(dados, dict):
         lista = dados.get("cookies")
         if not isinstance(lista, list):
             raise InvalidCookieFile(
-                "o JSON foi lido, mas não contém uma lista de cookies reconhecível "
+                "o JSON foi lido, mas nêo contém uma lista de cookies reconhecível "
                 "(esperado um array, ou um objeto com a chave 'cookies') — exporte "
                 "novamente como cookies.txt (formato Netscape) ou confira o export JSON"
             )
@@ -74,8 +74,8 @@ def _converter_json(conteudo: str) -> str:
         lista = dados
     else:
         raise InvalidCookieFile(
-            "o JSON foi lido, mas não é uma lista de cookies nem um objeto com "
-            "'cookies' — na extensão, escolha exportar como cookies.txt (formato Netscape)"
+            "o JSON foi lido, mas nêo é uma lista de cookies nem um objeto com "
+            "'cookies' — na extensêo, escolha exportar como cookies.txt (formato Netscape)"
         )
 
     linhas = [linha for linha in (_cookie_dict_para_linha(c) for c in lista) if linha]
@@ -88,7 +88,7 @@ def _converter_json(conteudo: str) -> str:
 
 
 def _campos_separados_por_espaco(conteudo: str) -> bool:
-    """Detecta a exportação Netscape defeituosa onde os campos vieram separados por espaço."""
+    """Detecta a exportaçêo Netscape defeituosa onde os campos vieram separados por espaço."""
     for linha in conteudo.splitlines():
         crua = linha.strip()
         if not crua or crua.startswith("#"):
@@ -147,7 +147,7 @@ def save(conteudo: str, destino: Path) -> SaveResult:
     bruto = conteudo.strip()
     if not bruto:
         raise InvalidCookieFile(
-            "o arquivo enviado está vazio — confira se o export da extensão gerou "
+            "o arquivo enviado está vazio — confira se o export da extensêo gerou "
             "conteúdo antes de enviar de novo"
         )
 
@@ -155,16 +155,16 @@ def save(conteudo: str, destino: Path) -> SaveResult:
         conteudo = _converter_json(conteudo)
     elif bruto.startswith("<"):
         raise InvalidCookieFile(
-            "o conteúdo parece ser uma página HTML, não uma exportação de cookies "
+            "o conteúdo parece ser uma página HTML, nêo uma exportaçêo de cookies "
             "— parece que foi salva a página do navegador em vez do arquivo gerado "
-            "pela extensão; use o botão de exportar/baixar da extensão de cookies"
+            "pela extensêo; use o botêo de exportar/baixar da extensêo de cookies"
         )
 
     if _campos_separados_por_espaco(conteudo):
         raise InvalidCookieFile(
             "as linhas do arquivo têm os campos separados por ESPAÇO em vez de "
             "TAB — o formato Netscape exige que os 7 campos sejam separados por "
-            "TAB; exporte novamente com a extensão no formato cookies.txt padrão"
+            "TAB; exporte novamente com a extensêo no formato cookies.txt padrêo"
         )
 
     linhas = conteudo.splitlines()
@@ -173,7 +173,7 @@ def save(conteudo: str, destino: Path) -> SaveResult:
             "arquivo sem a linha de cabeçalho obrigatória "
             f"'{_CABECALHO_NETSCAPE}' — o http.cookiejar do Python (usado pelo "
             "yt-dlp) exige essa linha para reconhecer o arquivo como Netscape; "
-            "exporte o cookies.txt de novo com uma extensão que gere esse cabeçalho"
+            "exporte o cookies.txt de novo com uma extensêo que gere esse cabeçalho"
         )
 
     linhas_saneadas, corrigidos, descartados = _sanitizar(conteudo)
@@ -189,21 +189,21 @@ def save(conteudo: str, destino: Path) -> SaveResult:
     if total == 0:
         examinadas = sum(1 for linha in linhas if linha.strip() and not linha.strip().startswith("#"))
         if examinadas == 0:
-            # o export rodou, mas não capturou cookie nenhum: só o cabeçalho veio
+            # o export rodou, mas nêo capturou cookie nenhum: só o cabeçalho veio
             raise InvalidCookieFile(
                 "o arquivo só tem o cabeçalho, sem nenhuma linha de cookie — a "
-                "exportação não capturou nada. Exporte de novo com a aba do site "
+                "exportaçêo nêo capturou nada. Exporte de novo com a aba do site "
                 "aberta e já logada (a sua foto de perfil visível), e confira se a "
-                "extensão não está limitada a um site diferente"
+                "extensêo nêo está limitada a um site diferente"
             )
         raise InvalidCookieFile(
             f"nenhum cookie aproveitável encontrado ({examinadas} linha(s) "
-            "examinada(s) e descartada(s) por não terem os 7 campos esperados ou "
-            "por terem um campo de expiração inválido) — confira se o arquivo é "
+            "examinada(s) e descartada(s) por nêo terem os 7 campos esperados ou "
+            "por terem um campo de expiraçêo inválido) — confira se o arquivo é "
             "mesmo um cookies.txt no formato Netscape"
         )
 
-    # validação autoritativa: só aceitamos o que o próprio yt-dlp conseguir carregar
+    # validaçêo autoritativa: só aceitamos o que o próprio yt-dlp conseguir carregar
     fd_val, temporario_validacao = tempfile.mkstemp(suffix=".tmp")
     try:
         with os.fdopen(fd_val, "w") as arquivo:
@@ -213,7 +213,7 @@ def save(conteudo: str, destino: Path) -> SaveResult:
             jar.load(ignore_discard=True, ignore_expires=True)
         except Exception as erro:  # noqa: BLE001 - queremos capturar qualquer falha de load
             raise InvalidCookieFile(
-                f"cookies.txt inválido após sanitização: {erro}"
+                f"cookies.txt inválido após sanitizaçêo: {erro}"
             ) from erro
     finally:
         Path(temporario_validacao).unlink(missing_ok=True)

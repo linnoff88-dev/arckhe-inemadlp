@@ -1,11 +1,11 @@
-"""Autenticação: senha única, cookie de sessão assinado, token de upload."""
+"""Autenticaçêo: senha única, cookie de sessêo assinado, token de upload."""
 
 import hmac
 
 from itsdangerous import BadData, URLSafeSerializer
 
 SESSION_COOKIE = "inemadlp_session"
-SESSION_MAX_AGE = 315_360_000  # 10 anos: na prática a sessão não expira
+SESSION_MAX_AGE = 315_360_000  # 10 anos: na prática a sessêo nêo expira
 _SALT = "inemadlp-session"
 _PAYLOAD = "ok"
 
